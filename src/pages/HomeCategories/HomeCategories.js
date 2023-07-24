@@ -6,77 +6,65 @@ import HomeCategoriesCard from '../../components/HomeCategoriesCard/HomeCategori
 import axios from 'axios'
 
 
-let limit = 10
-let loadmore = true 
-
+let image_path = ""
 
 const HomeCategories = ({route}) => {
 
     const {url} = route.params
-    const [veri, setVeri] = useState([])
-    const [skip, setSkip] = useState(0)
     const [page, setPage] = useState(0)
+    const [data, setData] = useState([])
 
-    const fetchHomeProduct = () => {
+    console.log("sayfa sayısı: ",page)
+
+    const fetchHomeProducts = async() => {
         const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
         axios.defaults.headers['X-API-KEY'] = API_KEY;
-        console.log("homecategories: ",url)
-        axios.post(Config.API_POST_HOME_CATEGORIES_URL, {url_string: url, per_page: '10', page: page, sorting: 'ASC'},
-        {
-            headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
-        })
-        .then(res=> {
-            if(res.data.data.length == 0){
-                loadmore = false
-            }
-            setVeri([...veri, ...res.data.data])
-            setSkip(skip+10)
-            setPage(page+1)
-        })
-        .catch(err=> console.log("hata var: ",err))
+        try {
+            const responseData = await axios.post(Config.API_POST_HOME_CATEGORIES_URL, 
+                {url_string: url, per_page: '10', page:  page.toString(), sorting: 'ASC'},
+                {
+                    headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
+                })
+                console.log("post işlem sonucu: ",responseData.data.data)
+                setData([...data,...responseData.data.data])
+                image_path = responseData.data.image_path
+                //console.log("fotolar: ",responseData.data.image_path)
+        } catch (error) {
+            console.log("hata var: ",error)
+        }
     }
 
     useEffect(()=> {
-        fetchHomeProduct()
+        fetchHomeProducts()
     },[])
 
-    console.log("ekrandaki bilgiler: ",veri)
 
-    renderProduct = useCallback(({item})=> {
-        return(
-            <View style={{marginHorizontal: 20}}>
-                <Image source = {require('../../assets/narlogo.png')} style={{width: 100, height: 100}}/>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <Text>{item.title}</Text>
-                    <Text>{item.price}</Text>
-                </View>
-
-            </View>
-        )
-    },[veri])
-
-    const endReached = () => {
-        if(loadmore){
-            fetchHomeProduct()
-        }
-    }
-    let key =0
-    const keyExtractor = useCallback(() => {
-        key+=1
-    })
 
     renderHomeCategories = ({item}) => <HomeCategoriesCard homeProduct={item}/>
+
+    const renderProducts = ({item}) => {
+        return(
+        <View>
+            <Image source={{uri: image_path + item.img_url}} style={{width: 100, height: 100}}/>
+            <Text>{item.title}</Text>
+            <Text>{item.price}</Text>
+        </View>
+        )
+    }
+    const endReached = () => {
+        if(page +1 < 5){
+            setPage(page+1) 
+            fetchHomeProducts()
+        }
+    }
 
     if(route.params.url){
         return(
             <View>
                 <FlatList 
-                data={veri} 
-                renderItem={renderProduct}
-                onEndReached={endReached}
-                keyExtractor={(item) => item.id}
-                />
-                <Text>zoret</Text>
+                data={data}
+                renderItem={renderProducts}
+                onEndReached={endReached}/>
             </View>
 //60743
         )

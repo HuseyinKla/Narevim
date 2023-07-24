@@ -31,10 +31,7 @@ const Home = ({navigation}) => {
   imageUrl={data.image_path}/>
 
 
-  const renderAddressitem = ({item}) => {
-  return(
-    <Text>{item.name}</Text>
-  )}
+  const renderAddressitem = ({item}) => console.log("isimler: ",item.name)
 
   const handleSelectMainCategories = (url) => {
     console.log(url)
@@ -69,6 +66,9 @@ const Home = ({navigation}) => {
   },
 ]
 
+const jsonCasualData = JSON.stringify(casualData)
+console.log("casual data: ",jsonCasualData)
+
 const tempcasualData = [
     'isim1',
     'soyisim1',
@@ -97,12 +97,15 @@ const tempcasualData = [
         <Button title='azalt' onPress={()=> dispatch(decrement())}></Button>
         <Button title='tam arttır' onPress={()=> dispatch(incrementByAmount(10))}></Button>
         <Text>{count}</Text>
-        <TextInput value={text1} onChangeText={setText1} placeholder='bişyler gir'/>
-        <TextInput value={text2} onChangeText={setText2} placeholder='bişyler gir'/>
-        <TextInput value={text3} onChangeText={setText3} placeholder='bişyler gir'/>
+        <TextInput value={text1} onChangeText={setText1} placeholder='type'/>
+        <TextInput value={text2} onChangeText={setText2} placeholder='type'/>
+        <TextInput value={text3} onChangeText={setText3} placeholder='type'/>
         <Button title='girişi sonlandır' onPress={()=> dispatch(addAddress({text1,text2,text3}))}/>
-        <FlatList data={casualData} renderAddress={renderAddressitem}/>
-        <FlatList data={data.data} renderItem={renderMainCategories}/>
+        <FlatList data={adres} renderAddress={renderAddressitem}/>
+        <Text>AYRIK</Text>
+        {
+          casualData.map((item) => <Text>{item.name}</Text>)
+        }
       </SafeAreaView>
     )
   }
@@ -110,5 +113,8 @@ const tempcasualData = [
 
 export default Home
 
-//
-//
+//.JSON.
+//<FlatList data={data.data} renderItem={renderMainCategories}/>
+//Json formatına çevirip dene
+//flatlisti maple. çıktılara bak
+//casual datayı json formatına çevir

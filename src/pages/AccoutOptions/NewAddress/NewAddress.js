@@ -9,7 +9,7 @@ import axios from 'axios'
 import { Formik } from 'formik'
 import useFetchCategories from '../../../hooks/useFetchCategories/useFetchCategories'
 
-const NewAddress = () => {
+const NewAddress = ({navigation}) => {
 
   const {data, loading, error} = useFetchCategories(Config.API_GET_MEMBER_INFO_URL)
   //console.log("kullanıcının bilgileri: ",data.data.email)
@@ -71,6 +71,7 @@ const NewAddress = () => {
         headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
       })
       console.log("adres kaydetme işlemi: ",responseAddress.data.status)
+      navigation.navigate('AddressScreen')
       } catch (error) {
         console.log("adres kaydetme hatası: ", error)
       }
