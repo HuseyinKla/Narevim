@@ -1,20 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Alert, FlatList, Image, Text, View } from 'react-native'
+import { Alert, FlatList, Image, Text, TouchableWithoutFeedback, View } from 'react-native'
 import useFetchCategories from '../../hooks/useFetchCategories'
 import Config from 'react-native-config'
 import HomeCategoriesCard from '../../components/HomeCategoriesCard/HomeCategoriesCard'
 import axios from 'axios'
+import styles from './HomeCategories.style'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import MainPageProduct from '../../components/MainPageProduct'
 
-
-let image_path = ""
 
 const HomeCategories = ({route}) => {
 
     const {url} = route.params
     const [page, setPage] = useState(0)
     const [data, setData] = useState([])
-
-    console.log("sayfa sayısı: ",page)
+    const [img, setImg] = useState("")
 
     const fetchHomeProducts = async() => {
         const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
@@ -27,7 +27,7 @@ const HomeCategories = ({route}) => {
                 })
                 console.log("post işlem sonucu: ",responseData.data.data)
                 setData([...data,...responseData.data.data])
-                image_path = responseData.data.image_path
+                setImg(responseData.data.image_path)
                 //console.log("fotolar: ",responseData.data.image_path)
         } catch (error) {
             console.log("hata var: ",error)
@@ -39,18 +39,16 @@ const HomeCategories = ({route}) => {
     },[])
 
 
-
-    renderHomeCategories = ({item}) => <HomeCategoriesCard homeProduct={item}/>
-
-    const renderProducts = ({item}) => {
-        return(
-        <View>
-            <Image source={{uri: image_path + item.img_url}} style={{width: 100, height: 100}}/>
-            <Text>{item.title}</Text>
-            <Text>{item.price}</Text>
-        </View>
-        )
+    const handleSelectedProduct = (id) => {
+        console.log(id)
     }
+
+    const renderProducts = ({item}) => <MainPageProduct 
+    item={item} 
+    img={img} 
+    onSelect={()=> handleSelectedProduct(item.id)}
+    />
+
     const endReached = () => {
         if(page +1 < 5){
             setPage(page+1) 
@@ -64,18 +62,45 @@ const HomeCategories = ({route}) => {
                 <FlatList 
                 data={data}
                 renderItem={renderProducts}
-                onEndReached={endReached}/>
+                onEndReached={endReached}
+                numColumns={2}
+                />
             </View>
-//60743
         )
     }else{
         return <Text style={{alignSelf: 'center'}}>Ürün Bulunamadı</Text>
     }
-
 }
-
 
 export default HomeCategories
 
 
 /*{"brand": "VİP AHMET", "discountRatio": 0, "discount_price": "71.155", "id": "60738", "img_url": "vip-ahmet-cok-amacli-katli-raf-192.jpg", "isDiscount": "0", "point": 5, "price": "74.9", "review": "3", "title": "VİP AHMET ÇOK AMAÇLI KATLI RAF VP-993"}*/
+
+//renderHomeCategories = ({item}) => <HomeCategoriesCard homeProduct={item}/>
+//
+
+
+/*        return(
+            <View style={styles.container}>
+                <View style={styles.inner_container}>
+                    <Image source={{uri: img + item.img_url}} style={styles.image}/>
+                    <Text style={styles.brand}>{item.brand}</Text>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <View style={styles.star_container}>
+                        <Icon name="star" style={styles.star}/>
+                        <Icon name="star" style={styles.star}/>
+                        <Icon name="star" style={styles.star}/>
+                        <Icon name="star" style={styles.star}/>
+                        <Icon name="star" style={styles.star}/>
+                        <Text style={{fontSize: 10, alignSelf: 'center', paddingLeft: 5,}}>(3)</Text>
+                    </View>
+                    <Text style={styles.price}>{item.price} TL</Text>
+                    <TouchableWithoutFeedback onPress={handle(item.id)}>
+                        <View style={styles.button}>
+                            <Text style={{color: 'black'}}>Ürün Detayı</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
+            </View>
+        )*/

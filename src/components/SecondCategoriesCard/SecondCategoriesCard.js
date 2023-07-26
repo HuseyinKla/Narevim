@@ -11,7 +11,6 @@ const SecondCategoriesCard = ({category, onSelect, imageUrl}) => {
                 <Text style={styles.title}>{category.title}</Text>
             </View>
         </TouchableWithoutFeedback>
-
     )
 }
 
