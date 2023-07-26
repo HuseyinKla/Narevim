@@ -25,6 +25,7 @@ import Favorites from './pages/AccoutOptions/Favorites'
 import Orders from './pages/AccoutOptions/Orders'
 import UserData from './pages/AccoutOptions/UserData'
 import NewAddress from './pages/AccoutOptions/NewAddress'
+import Product from './pages/Product'
 
 
 const Stack = createNativeStackNavigator()
@@ -73,6 +74,7 @@ const HomePageStruct = () => {
     <Stack.Navigator>
       <Stack.Screen name='HomeScreen' component={Home} options={{headerShown: false}}/>
       <Stack.Screen name='HomeScreencategories' component={HomeCategories}/>
+      <Stack.Screen name='ProductScreen' component={Product}/>
     </Stack.Navigator>
   )
 }

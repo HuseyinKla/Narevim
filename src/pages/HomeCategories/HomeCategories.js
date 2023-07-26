@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import MainPageProduct from '../../components/MainPageProduct'
 
 
-const HomeCategories = ({route}) => {
+const HomeCategories = ({route, navigation}) => {
 
     const {url} = route.params
     const [page, setPage] = useState(0)
@@ -41,6 +41,7 @@ const HomeCategories = ({route}) => {
 
     const handleSelectedProduct = (id) => {
         console.log(id)
+        navigation.navigate('ProductScreen', {id})
     }
 
     const renderProducts = ({item}) => <MainPageProduct 
