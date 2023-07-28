@@ -51,8 +51,8 @@ export default StyleSheet.create({
         fontSize: 30,
     },
     buton: {
-        height: height * 0.04,
-        width: width * 0.18,
+        height: height * 0.05,
+        width: width * 0.23,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#E91E63',
