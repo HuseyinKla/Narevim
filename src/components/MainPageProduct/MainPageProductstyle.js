@@ -5,12 +5,12 @@ const {width, height} = Dimensions.get('screen')
 export default StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
-        
+        alignItems: 'center',
+        backgroundColor: 'white',
     },
     inner_container: {
         marginTop: 5,
-        height: height * 0.48
+        height: height * 0.48,
     },
     title:{
         width: width * 0.45,

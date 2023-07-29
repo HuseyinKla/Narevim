@@ -6,12 +6,18 @@ import BasketProduct from '../../components/BasketProduct/BasketProduct'
 import styles from './Basket.style'
 
 
-const Basket = () => {
+const Basket = ({navigation}) => {
   
     const {data, loading, error} = useFetchCategories(Config.API_GET_BASKET_URL)
     console.log("tüm para: ",data.total)
 
     const renderBasket = ({item}) => <BasketProduct product={item}/>
+
+    const handlePayment = () => {
+        console.log("alışverişi tamamla")
+        navigation.navigate('PaymentScreen')
+    }
+
 
     return(
         <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -21,7 +27,7 @@ const Basket = () => {
                     <Text style={styles.title}>Sepet Toplam</Text>
                     <Text style={styles.price}>{data.total} TL</Text>
                 </View>
-                <TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={handlePayment}>
                     <View style={styles.button}>
                         <Text style={styles.text}>Alışverişi Tamamla</Text>
                     </View>

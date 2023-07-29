@@ -27,10 +27,12 @@ const Home = ({navigation}) => {
     return <ActivityIndicator size={'large'}/>
   }else{
     return(
-      <SafeAreaView>
+      <View>
         <Image source = {require('../../assets/narlogo.png')} style={styles.image}/>
         <FlatList data={data.data} renderItem={renderMainCategories}/>
-      </SafeAreaView>
+        <Text>Markalar</Text>
+        <View style={{height: 50, width: 50}}></View>
+      </View>
     )
   }
 }

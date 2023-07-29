@@ -26,6 +26,7 @@ import Orders from './pages/AccoutOptions/Orders'
 import UserData from './pages/AccoutOptions/UserData'
 import NewAddress from './pages/AccoutOptions/NewAddress'
 import Product from './pages/Product'
+import Payment from './pages/Payment'
 
 
 const Stack = createNativeStackNavigator()
@@ -74,7 +75,13 @@ const HomePageStruct = () => {
     <Stack.Navigator>
       <Stack.Screen name='HomeScreen' component={Home} options={{headerShown: false}}/>
       <Stack.Screen name='HomeScreencategories' component={HomeCategories}/>
-      <Stack.Screen name='ProductScreen' component={Product}/>
+      <Stack.Screen name='ProductScreen' component={Product}
+      options={({route}) => ({
+        headerTitle: route.params.title,
+        headerTitleStyle: {fontSize: 18, fontFamily: 'italic', color: '#E91E63'},
+        headerTintColor: '#E91E63',
+      })}
+      />
     </Stack.Navigator>
   )
 }
@@ -115,19 +122,44 @@ const AccountStruct = ({navigation}) => {
             headerTintColor: '#E91E63',
           }} />
           <Stack.Screen name='ChangePasswordScreen' component={ChangePassword} options={{headerShown: false}} />
-          <Stack.Screen name='FavoritesScreen' component={Favorites} options={{headerShown: false}} />
-          <Stack.Screen name='OrderScreen' component={Orders} options={{headerShown: false}} />
+          <Stack.Screen name='FavoritesScreen' component={Favorites} options={{
+            headerTitle: 'Favori Ürünlerim',
+            headerTitleStyle: {fontSize: 18, color: '#E91E63'},
+            headerTintColor: '#E91E63',}}
+            />
+          <Stack.Screen name='OrderScreen' component={Orders} options={{
+            headerTitle: 'Siparişlerim',
+            headerTitleStyle: {fontSize: 18, color: '#E91E63'},
+            headerTintColor: '#E91E63',
+            }} />
           <Stack.Screen name='UserDataScreen' component={UserData} options={{
             headerTitle: 'Kullanıcı Bilgileri',
             headerTitleStyle: {fontSize: 18, color: '#E91E63'},
             headerTintColor: '#E91E63',}} />
+          <Stack.Screen name='ProductScreen' component={Product}
+          options={({route}) => ({
+                  headerTitle: route.params.title,
+                  headerTitleStyle: {fontSize: 18, fontFamily: 'italic', color: '#E91E63'},
+                  headerTintColor: '#E91E63',})}
+          />
         </Stack.Navigator>
       )
     }
 
 }
 
-
+const BasketStruct = () => {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name='BasketScreen' component={Basket} options={{title: 'Sepetim'}}/>
+      <Stack.Screen name='PaymentScreen' component={Payment} options={{
+        headerTitle: 'Ödeme Yöntemi - Kargo',
+        headerTitleStyle: {fontSize: 18, fontFamily: 'italic', color: '#E91E63'},
+        headerTintColor: '#E91E63'    
+        }}/>
+    </Stack.Navigator>
+  )
+}
 
 
 function App(){
@@ -145,7 +177,7 @@ function App(){
               : 'home-outline'
             }else if ( route.name === "CategoriesStack"){
               iconName = focused ? 'border-all' : 'border-none'
-            }else if ( route.name === "BasketScreen"){
+            }else if ( route.name === "BasketStack"){
               iconName = focused ? 'cart' : 'cart-outline'
             }else if (route.name === "AccountStack"){
               iconName = focused ? 'account-circle' : 'account-circle-outline'
@@ -160,7 +192,7 @@ function App(){
         >
           <Tab.Screen name='HomeStack' component={HomePageStruct} options={{headerShown: false, title: 'Anasayfa'}}/>
           <Tab.Screen name='CategoriesStack' component={CategoriesPageStruct} options={{headerShown: false, title: 'Kategoriler'}}/>
-          <Tab.Screen name='BasketScreen' component={Basket} options={{title: 'Sepetim'}}/>
+          <Tab.Screen name='BasketStack' component={BasketStruct} options={{headerShown: false, title: 'Sepetim'}}/>
           <Tab.Screen name='AccountStack' component={AccountStruct} options={{headerShown: false, title: 'Hesabım' }}/>
         </Tab.Navigator>
       </NavigationContainer>

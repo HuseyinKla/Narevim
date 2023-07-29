@@ -39,15 +39,15 @@ const HomeCategories = ({route, navigation}) => {
     },[])
 
 
-    const handleSelectedProduct = (id) => {
+    const handleSelectedProduct = (id, title) => {
         console.log(id)
-        navigation.navigate('ProductScreen', {id})
+        navigation.navigate('ProductScreen', {id, title})
     }
 
     const renderProducts = ({item}) => <MainPageProduct 
     item={item} 
     img={img} 
-    onSelect={()=> handleSelectedProduct(item.id)}
+    onSelect={()=> handleSelectedProduct(item.id, item.title)}
     />
 
     const endReached = () => {

@@ -14,6 +14,8 @@ const Product = ({route, navigation}) => {
     const product = data.data
     console.log("isFavoritte değeri: ",data.isFavoritte)
 
+    const [fav, setFav] = useState(data.isFavoritte)
+
     const addChart = async() => {
         const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
         axios.defaults.headers['X-API-KEY'] = API_KEY;
@@ -25,10 +27,10 @@ const Product = ({route, navigation}) => {
             console.log("ürün ekleme işlem sonucu: ",responseData.data.message)
     }
     //FAVA EKLENDİKTEN SONRA İCON GÜNCELLENMİYOR UNUTMA !!!!
-    const addFav = async() => {
+    const addFav = () => {
         const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
         axios.defaults.headers['X-API-KEY'] = API_KEY;
-        const responseData = await axios.post(Config.API_POST_TOGGLE_FAV_URL, {product_id: product.id},
+        /*const responseData = await axios.post(Config.API_POST_TOGGLE_FAV_URL, {product_id: product.id},
         {
             headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
         })
@@ -36,6 +38,18 @@ const Product = ({route, navigation}) => {
             navigation.navigate('AccountStack', {screen: 'LogInScreen'})
         }
         console.log(responseData.data.message)
+        setFav(responseData.data.isFavoritte)
+        console.log("favın değeri: ",fav)*/
+        axios.post(Config.API_POST_TOGGLE_FAV_URL, {product_id: product.id},
+            {
+                headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
+            })
+        .then(res=> {
+            console.log(res.data.operation_status)
+            res.data.operation_status
+            ? setFav(1)
+            : setFav(0)
+        })
     }
 
     if(loading){
@@ -58,7 +72,7 @@ const Product = ({route, navigation}) => {
             <Text style={styles.price}>{product.price} TL</Text>
             <TouchableWithoutFeedback onPress={addFav}>
                 {
-                    data.isFavoritte === 1
+                    fav === 1
                     ?   <Icon name="heart" style={{color: 'red', fontSize: 30}}/>
                     :   <Icon name="heart-outline" style={styles.icon}/>
                 }
