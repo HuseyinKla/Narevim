@@ -27,6 +27,7 @@ import UserData from './pages/AccoutOptions/UserData'
 import NewAddress from './pages/AccoutOptions/NewAddress'
 import Product from './pages/Product'
 import Payment from './pages/Payment'
+import BrandsPage from './pages/BrandsPage/BrandsPage'
 
 
 const Stack = createNativeStackNavigator()
@@ -76,6 +77,13 @@ const HomePageStruct = () => {
       <Stack.Screen name='HomeScreen' component={Home} options={{headerShown: false}}/>
       <Stack.Screen name='HomeScreencategories' component={HomeCategories}/>
       <Stack.Screen name='ProductScreen' component={Product}
+      options={({route}) => ({
+        headerTitle: route.params.title,
+        headerTitleStyle: {fontSize: 18, fontFamily: 'italic', color: '#E91E63'},
+        headerTintColor: '#E91E63',
+      })}
+      />
+      <Stack.Screen name='BrandsScreen' component={BrandsPage}
       options={({route}) => ({
         headerTitle: route.params.title,
         headerTitleStyle: {fontSize: 18, fontFamily: 'italic', color: '#E91E63'},

@@ -1,23 +1,36 @@
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, Text, View, Image, Button, TextInput } from 'react-native'
+import { ActivityIndicator, FlatList, Text, View, Image, Button, TextInput, ScrollView } from 'react-native'
 import Config from 'react-native-config'
 import useFetchCategories from '../../hooks/useFetchCategories'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import MainPageCategoriesCard from '../../components/MainPageCategoriesCard/MainPageCategoriesCard'
 import styles from './Home.style'
+import Brands from '../../components/Brands/Brands'
 
 const Home = ({navigation}) => {
 
+
+  const {data: brandData, loading: brandLoading, error: brandError} = useFetchCategories(Config.API_GET_BRANDS_URL)
   const {data, loading, error} = useFetchCategories(Config.API_GET_MAIN_CATEGORIES_URL)
-    
+
+
   const renderMainCategories = ({item}) => <MainPageCategoriesCard category={item} 
   onSelect={() => handleSelectMainCategories(item.button_url)} 
   imageUrl={data.image_path}/>
+
+  const renderBrands = ({item}) => <Brands brand={item} 
+  img={brandData.image_path} 
+  onSelect={()=> handleSelectBrand(item.id, item.title)}/>
 
 
   const handleSelectMainCategories = (url) => {
     console.log(url)
     navigation.navigate('HomeScreencategories', {url} )
+  }
+
+  const handleSelectBrand = (id, title) => {
+    console.log("marka bastım: ",id)
+    navigation.navigate('BrandsScreen', {id, title})
   }
 
   if(error){
@@ -27,11 +40,15 @@ const Home = ({navigation}) => {
     return <ActivityIndicator size={'large'}/>
   }else{
     return(
-      <View>
-        <Image source = {require('../../assets/narlogo.png')} style={styles.image}/>
-        <FlatList data={data.data} renderItem={renderMainCategories}/>
-        <Text>Markalar</Text>
-        <View style={{height: 50, width: 50}}></View>
+      <View style={{flex: 1}}>
+        <ScrollView>
+          <View>
+            <Image source = {require('../../assets/narlogo.png')} style={styles.image}/>
+            <FlatList data={data.data} renderItem={renderMainCategories}/>
+            <Text style={{alignSelf: 'center', justifyContent: 'center', fontSize: 18, color: '#E91E63', borderBottomColor: '#E91E63', borderBottomWidth: 1}}>Markalar</Text>
+            <FlatList data={brandData.data} renderItem={renderBrands} horizontal/>
+          </View>
+        </ScrollView>
       </View>
     )
   }

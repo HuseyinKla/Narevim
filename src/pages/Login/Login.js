@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, Image, TextInput,TouchableWithoutFeedback,  } from 'react-native'
+import { Text, View, Image, TextInput,TouchableWithoutFeedback, Alert  } from 'react-native'
 import {Formik} from 'formik'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import styles from './Login.style'
@@ -29,12 +29,24 @@ const Login = ({navigation}) => {
                     headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
                 })
             setData(responseData)
-            console.log("LOGİN LANN KOGİİNBBBBB işlemi sonucu: ",responseData.status)
+            console.log("LOGİN LANN KOGİİNBBBBB işlemi sonucu: ",responseData.data.status)
+            if(responseData.data.status === "error"){
+                Alert.alert('Alert Title', 'My Alert Msg', [
+                    {
+                      text: 'Cancel',
+                      onPress: () => console.log('Cancel Pressed'),
+                      style: 'cancel',
+                    },
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ])
+                
+            }else{
+                navigation.navigate('AccountScreen')
+            }
         } catch (error) {
             console.log(error)
         }
 
-        navigation.navigate('AccountScreen')
 
     }
 
