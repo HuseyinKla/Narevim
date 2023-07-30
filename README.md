@@ -9,3 +9,4 @@
 -order screen added
 -payment screen added
 -brands slider added
+-change password screen added
