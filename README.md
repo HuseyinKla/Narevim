@@ -8,3 +8,4 @@
 -fav product added
 -order screen added
 -payment screen added
+-brands slider added
