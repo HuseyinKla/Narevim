@@ -39,15 +39,13 @@ const Login = ({navigation}) => {
                     },
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ])
-                
             }else{
+                console.log(responseData.data)
                 navigation.navigate('AccountScreen')
             }
         } catch (error) {
             console.log(error)
         }
-
-
     }
 
     const signinPress = () => {
