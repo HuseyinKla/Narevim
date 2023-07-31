@@ -8,8 +8,8 @@
 - [fav product added](https://github.com/HuseyinKla/Narevim/commit/36e1d33d33a5d20836823e95d0a200d0c9eae670)
 - [order screen added](https://github.com/HuseyinKla/Narevim/commit/36e1d33d33a5d20836823e95d0a200d0c9eae670)
 - [payment screen added](https://github.com/HuseyinKla/Narevim/commit/36e1d33d33a5d20836823e95d0a200d0c9eae670)
--brands slider added
--change password screen added
+- [brands slider added](https://github.com/HuseyinKla/Narevim/commit/182bbfc72b193c0111b6b46f6704898c47718d57)
+- [change password screen added](https://github.com/HuseyinKla/Narevim/commit/182bbfc72b193c0111b6b46f6704898c47718d57)
 -brand search bar added
 -basket screen counter added
 -bug fixed
