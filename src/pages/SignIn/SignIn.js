@@ -8,7 +8,7 @@ import Config from 'react-native-config'
 import axios from 'axios'
 
 
-const SignIn = () => {
+const SignIn = ({navigation}) => {
 
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
@@ -48,6 +48,7 @@ const SignIn = () => {
                 setData(responseData.data)
                 //setLoading(false)
                 console.log("Sign in işlem sonucu: ",responseData.status)
+                navigation.navigate('LogInScreen')
          } catch (error) {
             //setLoading(false)
             //setError(error)

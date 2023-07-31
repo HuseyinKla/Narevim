@@ -96,8 +96,6 @@ const HomePageStruct = () => {
 
 const AccountStruct = ({navigation}) => {
 
-
-
     const handleAddAddress = () => {
       navigation.navigate('NewAddressScreen')
     }
@@ -159,7 +157,7 @@ const AccountStruct = ({navigation}) => {
 const BasketStruct = () => {
   return(
     <Stack.Navigator>
-      <Stack.Screen name='BasketScreen' component={Basket} options={{title: 'Sepetim'}}/>
+      <Stack.Screen name='BasketScreen' component={Basket} options={{headerShown: false}}/>
       <Stack.Screen name='PaymentScreen' component={Payment} options={{
         headerTitle: 'Ödeme Yöntemi - Kargo',
         headerTitleStyle: {fontSize: 18, fontFamily: 'italic', color: '#E91E63'},

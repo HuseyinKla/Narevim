@@ -6,7 +6,7 @@ import { Dropdown } from 'react-native-element-dropdown'
 import Config from 'react-native-config'
 import axios from 'axios'
 
-const Payment = () => {
+const Payment = ({navigation}) => {
 
     const {data, loading, error} = useFetchCategories(Config.API_GET_CARGO_LIST_URL)
 
@@ -32,7 +32,10 @@ const Payment = () => {
         {
             headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
         })
-        console.log("post işlem sonucu: ",responseData.data.message)
+        console.log("post işlem sonucu: ",responseData.data.status)
+        if(responseData.data.status === "error"){
+            navigation.navigate('AccountStack', {screen: 'LogInScreen'})
+        }
     }
 
     

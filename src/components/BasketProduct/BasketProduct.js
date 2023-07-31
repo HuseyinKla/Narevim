@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, Image, Text, TouchableWithoutFeedback, View } from 'react-native'
 import styles from './BasketProduct.style'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Config from 'react-native-config'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { decrement, increment } from '../../context/counter/counterSlice'
 
 
 const {height, width} = Dimensions.get('window')
@@ -12,7 +14,11 @@ const {height, width} = Dimensions.get('window')
 const BasketProduct = ({product}) => {
 
     const [newCount, setNewCount] = useState(product.qty)
+    const dispatch = useDispatch()
 
+    useEffect(()=> {
+        dispatch(increment()) 
+    },[])
 
     const deleteProduct = async() => {
         const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
@@ -25,7 +31,7 @@ const BasketProduct = ({product}) => {
         console.log("silme işlem sonucu: ",responseData.data.message)
         //BURADA TEKRAR RENDER EDİLECEK
     }
-
+    
     console.log("ürünün row idsi: ",product.rowid)
     console.log("ürünün adedi : ",product.qty)
     console.log("ürünün idsi : ",product.id)

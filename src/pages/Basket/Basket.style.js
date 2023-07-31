@@ -32,6 +32,13 @@ export default StyleSheet.create({
     text: {
         color: 'white',
         alignSelf: 'center'
-    }
-
+    },
+    header: {
+        height: height * 0.06,
+        width: width,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomColor: 'gray',
+        borderBottomWidth: 0.7,
+    },
 })

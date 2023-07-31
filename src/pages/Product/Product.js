@@ -24,7 +24,10 @@ const Product = ({route, navigation}) => {
             {
                 headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
             })
-            console.log("ürün ekleme işlem sonucu: ",responseData.data.message)
+            console.log("ürün ekleme işlem sonucu: ",responseData.data.status)
+            if(responseData.data.status === "success"){
+                navigation.navigate('BasketStack', {screen: 'BasketScreen'})
+            }
     }
     //FAVA EKLENDİKTEN SONRA İCON GÜNCELLENMİYOR UNUTMA !!!!
     const addFav = () => {
