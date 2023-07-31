@@ -11,3 +11,4 @@
 -brands slider added
 -change password screen added
 -brand search bar added
+-basket screen counter added
