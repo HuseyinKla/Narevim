@@ -10,8 +10,8 @@
 - [payment screen added](https://github.com/HuseyinKla/Narevim/commit/36e1d33d33a5d20836823e95d0a200d0c9eae670)
 - [brands slider added](https://github.com/HuseyinKla/Narevim/commit/182bbfc72b193c0111b6b46f6704898c47718d57)
 - [change password screen added](https://github.com/HuseyinKla/Narevim/commit/182bbfc72b193c0111b6b46f6704898c47718d57)
--brand search bar added
--basket screen counter added
--bug fixed
-end of week
+- [brand search bar added](https://github.com/HuseyinKla/Narevim/commit/e5c016c313eccea1d7c73d579d0a946521f3f7e8)
+- [basket screen counter added](https://github.com/HuseyinKla/Narevim/commit/e5c016c313eccea1d7c73d579d0a946521f3f7e8)
+- [bug fixed](https://github.com/HuseyinKla/Narevim/commit/e5c016c313eccea1d7c73d579d0a946521f3f7e8)
+## End of Week
 
