@@ -32,11 +32,11 @@ const ChangePassword = () => {
             <Image source = {require('../../../assets/narlogo.png')} style={styles.image}/>
             <View style={styles.inner_container}>
                 <Icon name={'account-key-outline'} style={styles.icon}/>
-                <TextInput placeholder='Eski Şifre' onChangeText={setOldPassword} value={oldPassword} style={styles.input}/>
+                <TextInput placeholder='Eski Şifre' onChangeText={setOldPassword} value={oldPassword} style={styles.input} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
             </View>
             <View style={styles.inner_container}>
                 <Icon name={'account-key'} style={styles.icon}/>
-                <TextInput placeholder='Yeni Şifre' onChangeText={setNewPassword} value={newPassword} style={styles.input}/>
+                <TextInput placeholder='Yeni Şifre' onChangeText={setNewPassword} value={newPassword} style={styles.input} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
             </View>
             <TouchableWithoutFeedback onPress={changePassword} >
                 <View style={styles.button}>

@@ -97,7 +97,7 @@ const Home = ({navigation}) => {
           <View>
             <Image source = {require('../../assets/narlogo.png')} style={styles.image}/>
             <View style={styles.input}>
-              <TextInput placeholder='Aramak istediğiniz ürünü girin' value={searchText} onChangeText={setSearchText}/>
+              <TextInput placeholder='Aramak istediğiniz ürünü girin' value={searchText} onChangeText={setSearchText} placeholderTextColor={'gray'} style={{color: 'black'}} cursorColor={'#E91E63'}/>
               {
                 isSearch
                 ? <TouchableWithoutFeedback onPress={closeSearch}>

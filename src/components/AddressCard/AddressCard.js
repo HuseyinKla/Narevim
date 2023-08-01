@@ -30,11 +30,11 @@ const AddressCard = ({address}) => {
                     <Text style={{color: 'black'}}>   {address.id}</Text>
                 </View>
                 <View style={{marginVertical: 10,}}>
-                    <Text>{address.clear_address}</Text>
-                    <Text>{address.telephone}</Text>
+                    <Text style={{color: 'black'}}>{address.clear_address}</Text>
+                    <Text style={{color: 'black'}}>{address.telephone}</Text>
                     <View style={{flexDirection: 'row'}}>
-                        <Text>{address.name}</Text>
-                        <Text>{address.surname}</Text>
+                        <Text style={{color: 'black'}}>{address.name}</Text>
+                        <Text style={{color: 'black'}}>{address.surname}</Text>
                     </View>
                 </View>
 

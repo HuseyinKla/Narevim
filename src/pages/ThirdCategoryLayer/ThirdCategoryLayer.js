@@ -5,7 +5,7 @@ import { Text, View } from 'react-native'
 const ThirdCategoryLayer = () => {
     return(
         <View>
-            <Text>Burası third layer Sayfası</Text>
+            <Text style={{color: 'black'}}>Burası third layer Sayfası</Text>
         </View>
     )
 }

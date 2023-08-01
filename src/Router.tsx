@@ -75,7 +75,11 @@ const HomePageStruct = () => {
   return(
     <Stack.Navigator>
       <Stack.Screen name='HomeScreen' component={Home} options={{headerShown: false}}/>
-      <Stack.Screen name='HomeScreencategories' component={HomeCategories}/>
+      <Stack.Screen name='HomeScreencategories' component={HomeCategories} options={{
+        headerTitle: 'Kampanyalı Ürünler',
+        headerTitleStyle: {fontSize: 18, fontFamily: 'italic', color: '#E91E63'},
+        headerTintColor: '#E91E63',
+      }}/>
       <Stack.Screen name='ProductScreen' component={Product}
       options={({route}) => ({
         headerTitle: route.params.title,
@@ -142,12 +146,6 @@ const AccountStruct = ({navigation}) => {
             headerTitle: 'Kullanıcı Bilgileri',
             headerTitleStyle: {fontSize: 18, color: '#E91E63'},
             headerTintColor: '#E91E63',}} />
-          <Stack.Screen name='ProductScreen' component={Product}
-          options={({route}) => ({
-                  headerTitle: route.params.title,
-                  headerTitleStyle: {fontSize: 18, fontFamily: 'italic', color: '#E91E63'},
-                  headerTintColor: '#E91E63',})}
-          />
         </Stack.Navigator>
       )
     }

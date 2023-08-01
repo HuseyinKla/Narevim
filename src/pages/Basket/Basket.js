@@ -21,9 +21,16 @@ const Basket = ({navigation}) => {
         )
     }
 
-    const handlePayment = () => {
+    const handlePayment = async() => {
         console.log("alışverişi tamamla")
-        navigation.navigate('PaymentScreen')
+
+        const isLogin = await axios.get(Config.API_GET_MEMBER_INFO_URL)
+        console.log("basketten login ekranına giderken: ",isLogin.data)
+        if(isLogin.data.status === "error"){
+            navigation.navigate('AccountStack', {screen: 'LogInScreen'})
+        }else{
+            navigation.navigate('PaymentScreen')
+        }
     }
 
 
@@ -32,7 +39,8 @@ const Basket = ({navigation}) => {
         axios.defaults.headers['X-API-KEY'] = API_KEY;
         const responseData = await axios.get(Config.API_GET_BASKET_URL)
         console.log("sepet getirildi: ",responseData.status)
-        setData(responseData.data.data)
+        console.log("spetin toplamı: ",responseData.data.total)
+        setData(responseData.data)
     }
 
 
@@ -46,7 +54,7 @@ const Basket = ({navigation}) => {
             <View style={styles.header}>
                  <Text style={{color: '#E91E63'}}>Sepet : {count} ürün</Text>
             </View>
-            <FlatList data={data} renderItem={renderBasket}/>
+            <FlatList data={data.data} renderItem={renderBasket}/>
             <View style={styles.footer_container}>
                 <View>
                     <Text style={styles.title}>Sepet Toplam</Text>

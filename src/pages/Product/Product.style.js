@@ -49,6 +49,7 @@ export default StyleSheet.create({
     },
     icon: {
         fontSize: 30,
+        color: 'black',
     },
     buton: {
         height: height * 0.05,

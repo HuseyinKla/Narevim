@@ -14,6 +14,7 @@ export default StyleSheet.create({
         borderRadius: 5,
         borderColor: 'gray',
         flex: 1,
+        color: 'black',
     },
     button_login:{
         backgroundColor: '#E91E63',

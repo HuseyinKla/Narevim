@@ -65,11 +65,16 @@ const HomeCategories = ({route, navigation}) => {
                 renderItem={renderProducts}
                 onEndReached={endReached}
                 numColumns={2}
+                
                 />
             </View>
         )
     }else{
-        return <Text style={{alignSelf: 'center'}}>Ürün Bulunamadı</Text>
+        return (
+            <View style={{alignItems: 'center', justifyContent: 'center', flex: 1}}>
+                <Text style={{color: '#E91E63', fontWeight: 'bold', fontSize: 18}}>Ürün Bulunamadı!</Text>
+            </View>
+        )
     }
 }
 

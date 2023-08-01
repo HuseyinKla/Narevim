@@ -18,6 +18,7 @@ export default StyleSheet.create({
         marginTop: 5,
         marginLeft: 5,
         marginRight: 10,
+        color: 'black',
     },
     title_container: {
         flexDirection: 'row',
@@ -50,8 +51,8 @@ export default StyleSheet.create({
         marginBottom: 15,
     },
     placeholderStyle: {
-        fontSize: 16,
-        color: 'black',
+        fontSize: 14,
+        color: 'gray',
     },
     selectedTextStyle: {
         fontSize: 16,

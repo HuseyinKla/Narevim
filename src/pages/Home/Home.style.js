@@ -21,6 +21,7 @@ export default StyleSheet.create({
         paddingLeft: 10,
         justifyContent: 'space-between',
         marginTop: 5,
+        marginBottom: 10,
     },
     icon: {
         color:"#E91E63",

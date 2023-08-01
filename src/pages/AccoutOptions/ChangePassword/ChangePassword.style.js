@@ -29,7 +29,8 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderColor: '#e0e0e0',
         flex: 1,
-        marginHorizontal: width * 0.06
+        marginHorizontal: width * 0.06,
+        color: 'black'
     },
     button: {
         height: height * 0.06,

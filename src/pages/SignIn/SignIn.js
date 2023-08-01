@@ -73,16 +73,20 @@ const SignIn = ({navigation}) => {
                                 <TextInput style={styles.input} 
                                 placeholder='Ad'
                                 onChangeText={setName}
+                                placeholderTextColor={'gray'}
+                                cursorColor={'#E91E63'}
                                 value={name}
                                 />
                             </View>
-                            <View style={styles.input_container}>
-                                <TextInput style={styles.input} placeholder='Soyad' onChangeText={setSurname} value={surname}/>
+                            <View style={styles.iconless}>
+                                <TextInput style={styles.input} placeholderTextColor={'gray'} placeholder='Soyad' onChangeText={setSurname} value={surname}/>
                             </View>
                             <View style={styles.input_container}>
                                 <Icon name="phone" style={styles.icon}/>
                                 <TextInput style={styles.input} 
                                 placeholder='Telefon'
+                                placeholderTextColor={'gray'}
+                                cursorColor={'#E91E63'}
                                 onChangeText={setPhone}
                                 value={phone}/>
                             </View>
@@ -99,13 +103,17 @@ const SignIn = ({navigation}) => {
                             <Icon name="email" style={styles.icon}/>
                             <TextInput style={styles.input} 
                             placeholder='E-Posta'
+                            cursorColor={'#E91E63'}
                             onChangeText={setMail}
+                            placeholderTextColor={'gray'}
                             value={mail}/>
                         </View>
                         <View style={styles.input_container}>
                             <Icon name="shield-key" style={styles.icon}/>
                             <TextInput style={styles.input} 
                             placeholder='Şifre'
+                            cursorColor={'#E91E63'}
+                            placeholderTextColor={'gray'}
                             onChangeText={setPassword}
                             value={password}/>
                         </View>

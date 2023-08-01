@@ -17,6 +17,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontStyle: 'italic',
         paddingLeft: width * 0.02,
+        color: 'black'
     },
     price: {
         color: 'red',

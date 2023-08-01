@@ -5,6 +5,8 @@ import Config from 'react-native-config'
 import styles from './Account.style'
 import AccountOptions from '../../components/AccountOptionsCard/AccountOptionsCard'
 import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 const Account = ({navigation}) => {
 
@@ -13,9 +15,12 @@ const Account = ({navigation}) => {
             const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
             axios.defaults.headers['X-API-KEY'] = API_KEY;
             try {
-                const responseData = await axios.get(Config.API_GET_MEMBER_INFO_URL)
+                const responseData = await axios.get(Config.API_GET_LOGOUT_URL)
                 console.log("logout işlemi sonucu: ",responseData.status)
-                responseData.status === 200 ? navigation.navigate('LogInScreen') : console.log("error")
+                if(responseData.status === 200){
+                    AsyncStorage.removeItem('USER')
+                    navigation.navigate('LogInScreen')
+                }
             } catch (error) {
                 console.log(error)
             }

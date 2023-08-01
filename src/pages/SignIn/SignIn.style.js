@@ -1,4 +1,7 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+
+const {width, height} = Dimensions.get('window')
+
 
 export default StyleSheet.create({
     container: {
@@ -61,5 +64,11 @@ export default StyleSheet.create({
 
     },
     button: {
+    },
+    iconless: {
+        height: 35,
+        marginVertical: 5,
+        alignSelf: 'flex-end',
+        width: width * 0.91
     }
 })

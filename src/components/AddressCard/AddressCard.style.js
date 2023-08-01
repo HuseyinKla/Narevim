@@ -13,7 +13,7 @@ export default StyleSheet.create({
         marginTop: 5,
     },
     title_container: {
-        flex: 1
+        flex: 1,
     },
     delete_container: {
         minWidth: 40,

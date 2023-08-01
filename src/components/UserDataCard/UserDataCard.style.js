@@ -29,6 +29,7 @@ export default StyleSheet.create({
     },
     data:{
         marginLeft: 5,
+        color: 'black'
     },
     content_container:{
         flexDirection: 'row',

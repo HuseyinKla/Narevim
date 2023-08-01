@@ -45,6 +45,7 @@ const NewAddress = ({navigation}) => {
     getCityName()
   },[])
 
+  //BUTONU KONTROL ET TİK DEĞİŞTİĞİNDE HATA VERİYOR MU
   const changeBillType = () => {
     setBillType(!billType)
   }
@@ -92,15 +93,15 @@ const NewAddress = ({navigation}) => {
               <Divider/>
               <View style={styles.inner_container}>
                   <Icon name={"account-circle"} size={35} style={styles.icon}/>
-                  <TextInput placeholder='Ad' style={styles.input} onChangeText={handleChange('name')} value={values.name}/>
+                  <TextInput placeholder='Ad' style={styles.input} onChangeText={handleChange('name')} value={values.name} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
               </View>
               <View style={styles.inner_container}>
                   <Icon name={"account-circle"} size={35} style={styles.icon}/>
-                  <TextInput placeholder='Soyad' style={styles.input} onChangeText={handleChange('surname')} value={values.surname}/>
+                  <TextInput placeholder='Soyad' style={styles.input} onChangeText={handleChange('surname')} value={values.surname} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
               </View>
               <View style={styles.inner_container}>
                   <Icon name={"phone"} size={35} style={styles.icon}/>
-                  <TextInput placeholder='Telefon' style={styles.input} onChangeText={handleChange('telephone')} value={values.telephone}/>
+                  <TextInput placeholder='Telefon' style={styles.input} onChangeText={handleChange('telephone')} value={values.telephone} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
               </View>
 
               <View style={styles.title_address}>
@@ -110,10 +111,11 @@ const NewAddress = ({navigation}) => {
               <Divider/>
               <View style={styles.dropdown_container}>
                 <Dropdown
-                  style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+                  style={[styles.dropdown, isFocus && { borderColor: '#E91E63' }]}
                   placeholderStyle={styles.placeholderStyle}
                   selectedTextStyle={styles.selectedTextStyle}
                   inputSearchStyle={styles.inputSearchStyle}
+                  itemTextStyle={{color: 'black'}}
                   data={cityNameList}
                   search
                   maxHeight={300}
@@ -132,10 +134,11 @@ const NewAddress = ({navigation}) => {
                   }}
                 />
                 <Dropdown
-                  style={[styles.dropdown, isFocusTown && { borderColor: 'blue' }]}
+                  style={[styles.dropdown, isFocusTown && { borderColor: '#E91E63' }]}
                   placeholderStyle={styles.placeholderStyle}
                   selectedTextStyle={styles.selectedTextStyle}
                   inputSearchStyle={styles.inputSearchStyle}
+                  itemTextStyle={{color: 'black'}}
                   data={townNameList}
                   search
                   maxHeight={300}
@@ -153,7 +156,7 @@ const NewAddress = ({navigation}) => {
             </View>
             <View style={styles.inner_container}>
                   <Icon name={"office-building"} size={35} style={styles.icon}/>
-                  <TextInput placeholder='Adres' style={styles.input} onChangeText={handleChange('clear_address')} value={values.clear_address}/>
+                  <TextInput placeholder='Adres' style={styles.input} onChangeText={handleChange('clear_address')} value={values.clear_address} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
             </View>
                   
             {
@@ -173,17 +176,16 @@ const NewAddress = ({navigation}) => {
                   <Divider/>
                   <View style={styles.inner_container}>
                     <Icon name={"account-circle"} size={35} style={styles.icon}/>
-                    <TextInput placeholder='Ad' style={styles.input}/>
+                    <TextInput placeholder='Ad' style={styles.input} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
                   </View>
                   <View style={styles.inner_container}>
                     <Icon name={"account-circle"} size={35} style={styles.icon}/>
-                    <TextInput placeholder='Soyad' style={styles.input}/>
+                    <TextInput placeholder='Soyad' style={styles.input} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
                   </View>
                   <View style={styles.inner_container}>
                     <Icon name={"phone"} size={35} style={styles.icon}/>
-                    <TextInput placeholder='Telefon' style={styles.input}/>
+                    <TextInput placeholder='Telefon' style={styles.input} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
                   </View>
-
                   <View style={styles.title_address}>
                     <Icon name={"map-marker-radius"} size={35} style={styles.icon}/>
                     <Text style={{color: 'black'}}>Adres Bilgileri</Text>
@@ -191,11 +193,12 @@ const NewAddress = ({navigation}) => {
                   <Divider/>
                   <View style={styles.dropdown_container}>
                   <Dropdown
-                    style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+                    style={[styles.dropdown, isFocus && { borderColor: '#E91E63' }]}
                     placeholderStyle={styles.placeholderStyle}
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
+                    itemTextStyle={{color: 'black'}}
                     data={cityName}
                     search
                     maxHeight={300}
@@ -213,11 +216,12 @@ const NewAddress = ({navigation}) => {
                     }}
                   />
                   <Dropdown
-                    style={[styles.dropdown, isFocusTown && { borderColor: 'blue' }]}
+                    style={[styles.dropdown, isFocusTown && { borderColor: '#E91E63' }]}
                     placeholderStyle={styles.placeholderStyle}
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
+                    itemTextStyle={{color: 'black'}}
                     data={townName}
                     search
                     maxHeight={300}
@@ -235,13 +239,11 @@ const NewAddress = ({navigation}) => {
                   </View>
                   <View style={styles.inner_container}>
                     <Icon name={"office-building"} size={35} style={styles.icon}/>
-                    <TextInput placeholder='Adres' style={styles.input}/>
+                    <TextInput placeholder='Adres' style={styles.input} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
                   </View>
                 </View>
               : null
             }
-
-
             <View style={styles.bill_container}>
               <TouchableOpacity onPress={changeBillType}>
                 { 
@@ -250,7 +252,7 @@ const NewAddress = ({navigation}) => {
                   : <Icon name={"checkbox-blank-circle-outline"} size={25} style={styles.icon}/>
                 }
               </TouchableOpacity>
-              <Text style={{paddingLeft: 10}}>Faturam aynı adrese gönderilsin</Text>
+              <Text style={{paddingLeft: 10, color: 'black'}}>Faturam aynı adrese gönderilsin</Text>
             </View>
             <TouchableWithoutFeedback onPress={handleSubmit}>
               <View style={styles.save}>
