@@ -14,4 +14,4 @@
 - [basket screen counter added](https://github.com/HuseyinKla/Narevim/commit/e5c016c313eccea1d7c73d579d0a946521f3f7e8)
 - [bug fixed](https://github.com/HuseyinKla/Narevim/commit/e5c016c313eccea1d7c73d579d0a946521f3f7e8)
 ## End of Week
-
+- [auto login added](https://github.com/HuseyinKla/Narevim/commit/21191b93d9921aa3a4bf539c8b88f4500710ad04)
