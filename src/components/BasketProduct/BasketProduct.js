@@ -18,6 +18,7 @@ const BasketProduct = ({product}) => {
 
     useEffect(()=> {
         dispatch(increment()) 
+        handleUpdateCart()
     },[])
 
     const deleteProduct = async() => {
@@ -38,12 +39,18 @@ const BasketProduct = ({product}) => {
 
 
     const handleUpdateCart = async(type) => {
-        type
-        ? setNewCount(newCount+1)
-        : setNewCount(newCount-1)
+        if(type){
+            setNewCount(newCount+1)
+        }else{
+            if(newCount > 1){
+                setNewCount(newCount-1)
+            }else{
+                return
+            }
+        }
         const responseData = await axios.post(Config.API_POST_UPDATE_CART_URL, {product_id: product.rowid, qty: newCount},
         {
-            headers: axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+            headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
         })
         console.log("ürün güncelleme işlem sonucu: ",responseData)
         console.log("result: ",newCount)

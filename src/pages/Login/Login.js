@@ -98,6 +98,7 @@ const Login = ({navigation}) => {
                             placeholder='E-Posta' 
                             placeholderTextColor={'gray'}
                             cursorColor={'#E91E63'}
+                            keyboardType='email-address'
                             value={values.email} 
                             onChangeText={handleChange('email')}/>
                         </View>
@@ -108,7 +109,8 @@ const Login = ({navigation}) => {
                             cursorColor={'#E91E63'}
                             value={values.password}
                             placeholderTextColor={'gray'}
-                            onChangeText={handleChange('password')}/>
+                            onChangeText={handleChange('password')}
+                            secureTextEntry/>
                         </View>
                         <TouchableWithoutFeedback onPress={handleSubmit}>
                             <View style={styles.button_login}>

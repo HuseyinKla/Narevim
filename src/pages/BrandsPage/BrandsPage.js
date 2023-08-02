@@ -9,6 +9,8 @@ const BrandsPage = ({route, navigation}) => {
 
     const [page, setPage] = useState(0)
     const [data, setData] = useState([])
+    const [product, setProduct] = useState(null)
+
 
     const {id} = route.params
     console.log("gelen id: ",id)
@@ -20,13 +22,14 @@ const BrandsPage = ({route, navigation}) => {
         {
            headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
         })
-        console.log("post işlem sonucu: ",responseData.status)
-        setData(responseData.data)
+        console.log("post işlem sonucu: ",responseData.data)
+        setProduct(responseData.data)
+        setData([...data, ...responseData.data.data])
     }
 
 
     const renderBrandProduct = ({item}) => <MainPageProduct item={item} 
-    img={data.image_path}
+    img={product.image_path}
     onSelect={()=> handleSelectedBrandProduct(item.id, item.title)} 
     />
 
@@ -39,19 +42,15 @@ const BrandsPage = ({route, navigation}) => {
 
 
     const endReached = () => {
-        if(page +1 < 5){
-            setPage(page+1) 
-            fetchBrandProduct()
-        }
+        setPage(page+1)
     }
 
     useEffect(()=> {
         fetchBrandProduct()
-    },[])
+    },[page])
 
 
-
-    if(data.status === "error"){
+    if(data.length === 0){
         return(
             <View style={{alignItems: 'center',flex: 1, justifyContent: 'center'}}>
                 <Text style={{color: '#E91E63', fontWeight: 'bold', }}>Ürün Bulunamadı!</Text>
@@ -60,7 +59,7 @@ const BrandsPage = ({route, navigation}) => {
     }else{
         return(
             <View>
-                <FlatList data={data.data} renderItem={renderBrandProduct} onEndReached={endReached} numColumns={'2'}/>
+                <FlatList data={data} renderItem={renderBrandProduct} onEndReached={endReached} numColumns={'2'}/>
             </View>
         )
     }

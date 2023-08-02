@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Alert, FlatList, Image, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, Image, Text, TouchableWithoutFeedback, View } from 'react-native'
 import useFetchCategories from '../../hooks/useFetchCategories'
 import Config from 'react-native-config'
 import HomeCategoriesCard from '../../components/HomeCategoriesCard/HomeCategoriesCard'
@@ -25,8 +25,8 @@ const HomeCategories = ({route, navigation}) => {
                 {
                     headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
                 })
-                console.log("post işlem sonucu: ",responseData.data.data)
-                setData([...data,...responseData.data.data])
+                //console.log("getUrl servisi sonucu sonucu: ",responseData.data)
+                setData([...data, ...responseData.data.data])
                 setImg(responseData.data.image_path)
                 //console.log("fotolar: ",responseData.data.image_path)
         } catch (error) {
@@ -36,11 +36,11 @@ const HomeCategories = ({route, navigation}) => {
 
     useEffect(()=> {
         fetchHomeProducts()
-    },[])
+    },[page])
 
 
     const handleSelectedProduct = (id, title) => {
-        console.log(id)
+        //console.log(id)
         navigation.navigate('ProductScreen', {id, title})
     }
 
@@ -51,10 +51,19 @@ const HomeCategories = ({route, navigation}) => {
     />
 
     const endReached = () => {
-        if(page +1 < 5){
+        /*if(page +1 < 5){
             setPage(page+1) 
             fetchHomeProducts()
-        }
+        }*/
+        setPage(page+1)
+    }
+
+    const renderLoader = () => {
+        return(
+            <View>
+                <ActivityIndicator size={'large'} color={'#E91E63'}/>
+            </View>
+        )
     }
 
     if(route.params.url){
@@ -65,7 +74,7 @@ const HomeCategories = ({route, navigation}) => {
                 renderItem={renderProducts}
                 onEndReached={endReached}
                 numColumns={2}
-                
+                ListFooterComponent={renderLoader}
                 />
             </View>
         )

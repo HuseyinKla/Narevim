@@ -101,7 +101,7 @@ const NewAddress = ({navigation}) => {
               </View>
               <View style={styles.inner_container}>
                   <Icon name={"phone"} size={35} style={styles.icon}/>
-                  <TextInput placeholder='Telefon' style={styles.input} onChangeText={handleChange('telephone')} value={values.telephone} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
+                  <TextInput placeholder='Telefon' style={styles.input} onChangeText={handleChange('telephone')} value={values.telephone} placeholderTextColor={'gray'} cursorColor={'#E91E63'} keyboardType='number-pad'/>
               </View>
 
               <View style={styles.title_address}>

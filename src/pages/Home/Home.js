@@ -42,29 +42,31 @@ const Home = ({navigation}) => {
 
 
   const handleSelectMainCategories = (url) => {
-    console.log(url)
+    //console.log(url)
     navigation.navigate('HomeScreencategories', {url} )
   }
 
   const handleSelectBrand = (id, title) => {
-    console.log("marka bastım: ",id)
+    //console.log("marka bastım: ",id)
     navigation.navigate('BrandsScreen', {id, title})
   }
 
   const handleSearchBrand = async() => {
-    console.log("aradım: ", searchText)
+    //console.log("aradım: ", searchText)
     if(!isSearch)
     {
       const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
       axios.defaults.headers['X-API-KEY'] = API_KEY;
-      const responseData = await axios.post(Config.API_POST_SEARCH_BRAND_URL, {keywords: searchText, page: page.toString(), per_page: '10', sorting: 'ASC'},
+      const responseData = await axios.post(Config.API_POST_SEARCH_BRAND_URL, {keywords: searchText, page: page.toString(), per_page: '30', sorting: 'ASC'},
       {
         headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
       })
-      console.log("marka arama işlem sonucu: ",responseData.data.message)
-      console.log("marka arama işlem sonucu: ",responseData.data)
+      //console.log("marka arama işlem sonucu: ",responseData.data.message)
+      //console.log("marka arama işlem sonucu: ",responseData.data)
       if(responseData.data.status === "error"){
-        Alert.alert(`Error! ${responseData.data.message}`)
+        Alert.alert("Hatalı arama","Aradığınız ürün bulunamadı!", [
+          {text: 'Tamam', onPress: () => closeSearch()},
+      ])
       }else{
         setBrandProducts(responseData.data)
         setIsSearch(!isSearch)
@@ -78,12 +80,14 @@ const Home = ({navigation}) => {
   }
 
   const endReached = () => {
-    console.log("sona geldik")
-    if(page +1 < 5){
+    console.log("aranan ürünlerde sona geldik")
+    /*if(page +1 < 5){
         setPage(page+1) 
         handleSearchBrand()
-    }
-}
+    }*/
+    setPage(page+1)
+    handleSearchBrand()
+  }
 
   if(error){
     console.log("işlem hatalı error: ",error)
