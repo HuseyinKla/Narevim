@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { View, Text, TextInput, TouchableWithoutFeedback, ActivityIndicator } from 'react-native'
+import { View, Text, TextInput, TouchableWithoutFeedback, ActivityIndicator, Alert } from 'react-native'
 import styles from './Payment.style'
 import useFetchCategories from '../../hooks/useFetchCategories/useFetchCategories'
 import { Dropdown } from 'react-native-element-dropdown'
@@ -26,15 +26,20 @@ const Payment = ({navigation}) => {
     ]
 
     const finishPayment = async() => {
-        const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
-        axios.defaults.headers['X-API-KEY'] = API_KEY;
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         const responseData = await axios.post(Config.API_POST_CREATE_ORDER_URL, {payment_type: key, cargo_id: id, order_note: note},
         {
             headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
         })
         console.log("post işlem sonucu: ",responseData.data.status)
         if(responseData.data.status === "error"){
-            navigation.navigate('AccountStack', {screen: 'LogInScreen'})
+            Alert.alert('Geçersiz İşlem', responseData.data.message,[
+                {text: 'Tamam', onPress: () => navigation.navigate('AccountStack', {screen: 'LogInScreen'})},
+            ])
+        }else{
+            Alert.alert('Siparişiniz Alınmıştır', responseData.data.message, [
+                {text: 'Siparişlerime Git', onPress: () => navigation.navigate('AccountStack', {screen: 'OrderScreen'})},
+            ])
         }
     }
 

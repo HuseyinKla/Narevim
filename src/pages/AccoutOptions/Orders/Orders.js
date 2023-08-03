@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { ActivityIndicator, FlatList, View } from 'react-native'
 import useFetchCategories from '../../../hooks/useFetchCategories'
 import Config from 'react-native-config'
 import OrderCard from '../../../components/OrderCard'
@@ -12,6 +12,11 @@ const Orders = () => {
 
     const renderOrders = ({item}) => <OrderCard order={item}/>
 
+    if(loading){
+        return(
+            <ActivityIndicator size={'large'} color={'#E91E63'}/>
+        )
+    }
     return(
         <View>
             <FlatList data={data.data} renderItem={renderOrders}/>

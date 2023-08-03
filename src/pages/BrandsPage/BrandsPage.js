@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, Text, View } from 'react-native'
-import useFetchCategories from '../../hooks/useFetchCategories/useFetchCategories'
+import { FlatList, Text, View } from 'react-native'
 import Config from 'react-native-config'
 import MainPageProduct from '../../components/MainPageProduct/MainPageProduct'
 import axios from 'axios'
@@ -16,8 +15,7 @@ const BrandsPage = ({route, navigation}) => {
     console.log("gelen id: ",id)
 
     const fetchBrandProduct = async() => {
-        const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
-        axios.defaults.headers['X-API-KEY'] = API_KEY;
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         const responseData = await axios.post(Config.API_POST_BRAND_PRODUCT_URL, {page: page.toString(), per_page: '10', brand_id: id, sorting: 'ASC'},
         {
            headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'

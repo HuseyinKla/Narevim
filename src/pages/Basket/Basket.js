@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, FlatList, TouchableWithoutFeedback, ActivityIndicator, Dimensions } from 'react-native'
-import useFetchCategories from '../../hooks/useFetchCategories/useFetchCategories'
+import { Text, View, FlatList, TouchableWithoutFeedback } from 'react-native'
 import Config from 'react-native-config'
 import BasketProduct from '../../components/BasketProduct/BasketProduct'
 import styles from './Basket.style'
@@ -12,7 +11,6 @@ import axios from 'axios'
 const Basket = ({navigation}) => {
   
     const count = useSelector(state => state.counter.value)
-    const {width, height} = Dimensions.get('window')
     const [data, setData] = useState([])
  
     const renderBasket = ({item}) => {
@@ -23,20 +21,20 @@ const Basket = ({navigation}) => {
 
     const handlePayment = async() => {
         console.log("alışverişi tamamla")
-
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         const isLogin = await axios.get(Config.API_GET_MEMBER_INFO_URL)
         console.log("basketten login ekranına giderken: ",isLogin.data)
         if(isLogin.data.status === "error"){
             navigation.navigate('AccountStack', {screen: 'LogInScreen'})
         }else{
-            navigation.navigate('PaymentScreen')
+            //navigation.navigate('PaymentScreen')
+            navigation.navigate('AccountStack', {screen: 'AddressScreen', params: {type: true}})
         }
     }
 
 
     const fetchBasket = async() => {
-        const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
-        axios.defaults.headers['X-API-KEY'] = API_KEY;
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         const responseData = await axios.get(Config.API_GET_BASKET_URL)
         console.log("sepet getirildi: ",responseData.status)
         console.log("spetin toplamı: ",responseData.data.total)

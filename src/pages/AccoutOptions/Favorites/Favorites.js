@@ -1,8 +1,7 @@
 import React from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { ActivityIndicator, FlatList, View } from 'react-native'
 import useFetchCategories from '../../../hooks/useFetchCategories/useFetchCategories'
 import Config from 'react-native-config'
-import FavProduct from '../../../components/FavProduct'
 import MainPageProduct from '../../../components/MainPageProduct'
 
 
@@ -15,11 +14,17 @@ const Favorites = ({navigation}) => {
 
     const renderFav = ({item}) => <MainPageProduct item={item} img={data.image_path} onSelect={()=> handleSelect(item.id, item.title)}/>
 
-    return(
-        <View>
-            <FlatList data={data.data} renderItem={renderFav} numColumns={'2'}/>
-        </View>
-    )
+    if(loading){
+        return(
+            <ActivityIndicator size={'large'} color={'#E91E63'}/>
+        )
+    }else{
+        return(
+            <View>
+                <FlatList data={data.data} renderItem={renderFav} numColumns={'2'}/>
+            </View>
+        )
+    }
 }
 
 export default Favorites

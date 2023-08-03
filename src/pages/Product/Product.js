@@ -16,9 +16,8 @@ const Product = ({route, navigation}) => {
 
     const [fav, setFav] = useState(data.isFavoritte)
 
-    const addChart = async() => {
-        const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
-        axios.defaults.headers['X-API-KEY'] = API_KEY;
+    const addCart = async() => {
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         console.log("sepete ekle id: ",product.id)
         const responseData = await axios.post(Config.API_POST_ADD_BASKET_URL, {product_id: product.id, qty: '1'},
             {
@@ -29,20 +28,8 @@ const Product = ({route, navigation}) => {
                 navigation.navigate('BasketStack', {screen: 'BasketScreen'})
             }
     }
-    //FAVA EKLENDİKTEN SONRA İCON GÜNCELLENMİYOR UNUTMA !!!!
     const addFav = () => {
-        const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
-        axios.defaults.headers['X-API-KEY'] = API_KEY;
-        /*const responseData = await axios.post(Config.API_POST_TOGGLE_FAV_URL, {product_id: product.id},
-        {
-            headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
-        })
-        if(responseData.data.status === "error"){
-            navigation.navigate('AccountStack', {screen: 'LogInScreen'})
-        }
-        console.log(responseData.data.message)
-        setFav(responseData.data.isFavoritte)
-        console.log("favın değeri: ",fav)*/
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         axios.post(Config.API_POST_TOGGLE_FAV_URL, {product_id: product.id},
             {
                 headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
@@ -61,32 +48,32 @@ const Product = ({route, navigation}) => {
         )
     }else{
     return(
-    <View style={styles.container}>
-        <ScrollView >
-            <View style={styles.inner_container}>
-                <Image source={{uri: data.images[0]}} style={styles.image}/>
-                <Text style={styles.title}>{product.title}</Text>
-                <Text style={styles.text}>Ürün hakkında bilgiler:</Text>
-                <Text style={styles.description}>{product.description}</Text>
-            </View>
-            <View style={{height: 60 }}/>
-        </ScrollView>
-        <View style={styles.bottom_container}>
-            <Text style={styles.price}>{product.price} TL</Text>
-            <TouchableWithoutFeedback onPress={addFav}>
-                {
-                    fav === 1
-                    ?   <Icon name="heart" style={{color: 'red', fontSize: 30}}/>
-                    :   <Icon name="heart-outline" style={styles.icon}/>
-                }
-            </TouchableWithoutFeedback>
-            <View style={styles.buton}>
-                <TouchableWithoutFeedback onPress={addChart}>
-                    <Text style={{color: 'white'}}>Sepete Ekle</Text>
+        <View style={styles.container}>
+            <ScrollView >
+                <View style={styles.inner_container}>
+                    <Image source={{uri: data.images[0]}} style={styles.image}/>
+                    <Text style={styles.title}>{product.title}</Text>
+                    <Text style={styles.text}>Ürün hakkında bilgiler:</Text>
+                    <Text style={styles.description}>{product.description}</Text>
+                </View>
+                <View style={{height: 60 }}/>
+            </ScrollView>
+            <View style={styles.bottom_container}>
+                <Text style={styles.price}>{product.price} TL</Text>
+                <TouchableWithoutFeedback onPress={addFav}>
+                    {
+                        fav === 1
+                        ?   <Icon name="heart" style={{color: 'red', fontSize: 30}}/>
+                        :   <Icon name="heart-outline" style={styles.icon}/>
+                    }
                 </TouchableWithoutFeedback>
+                <View style={styles.buton}>
+                    <TouchableWithoutFeedback onPress={addCart}>
+                        <Text style={{color: 'white'}}>Sepete Ekle</Text>
+                    </TouchableWithoutFeedback>
+                </View>
             </View>
         </View>
-    </View>
     )}
 }
 

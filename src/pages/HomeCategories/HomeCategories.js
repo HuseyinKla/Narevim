@@ -17,8 +17,7 @@ const HomeCategories = ({route, navigation}) => {
     const [img, setImg] = useState("")
 
     const fetchHomeProducts = async() => {
-        const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
-        axios.defaults.headers['X-API-KEY'] = API_KEY;
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         try {
             const responseData = await axios.post(Config.API_POST_HOME_CATEGORIES_URL, 
                 {url_string: url, per_page: '10', page:  page.toString(), sorting: 'ASC'},
@@ -88,34 +87,3 @@ const HomeCategories = ({route, navigation}) => {
 }
 
 export default HomeCategories
-
-
-/*{"brand": "VİP AHMET", "discountRatio": 0, "discount_price": "71.155", "id": "60738", "img_url": "vip-ahmet-cok-amacli-katli-raf-192.jpg", "isDiscount": "0", "point": 5, "price": "74.9", "review": "3", "title": "VİP AHMET ÇOK AMAÇLI KATLI RAF VP-993"}*/
-
-//renderHomeCategories = ({item}) => <HomeCategoriesCard homeProduct={item}/>
-//
-
-
-/*        return(
-            <View style={styles.container}>
-                <View style={styles.inner_container}>
-                    <Image source={{uri: img + item.img_url}} style={styles.image}/>
-                    <Text style={styles.brand}>{item.brand}</Text>
-                    <Text style={styles.title}>{item.title}</Text>
-                    <View style={styles.star_container}>
-                        <Icon name="star" style={styles.star}/>
-                        <Icon name="star" style={styles.star}/>
-                        <Icon name="star" style={styles.star}/>
-                        <Icon name="star" style={styles.star}/>
-                        <Icon name="star" style={styles.star}/>
-                        <Text style={{fontSize: 10, alignSelf: 'center', paddingLeft: 5,}}>(3)</Text>
-                    </View>
-                    <Text style={styles.price}>{item.price} TL</Text>
-                    <TouchableWithoutFeedback onPress={handle(item.id)}>
-                        <View style={styles.button}>
-                            <Text style={{color: 'black'}}>Ürün Detayı</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
-                </View>
-            </View>
-        )*/

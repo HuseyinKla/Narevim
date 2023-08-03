@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActivityIndicator, FlatList, Text, View } from 'react-native'
+import { ActivityIndicator, FlatList } from 'react-native'
 import useFetchCategories from '../../hooks/useFetchCategories'
 import Config from 'react-native-config'
 import { SafeAreaView } from 'react-native-safe-area-context'

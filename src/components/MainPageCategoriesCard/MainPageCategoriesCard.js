@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { Image, TouchableWithoutFeedback, View } from 'react-native'
 import styles from './MainPageCategoriesCard.style'
 
 

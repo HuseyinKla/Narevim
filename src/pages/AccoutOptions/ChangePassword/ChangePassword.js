@@ -1,21 +1,17 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native'
+import { Alert, Image, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native'
 import styles from './ChangePassword.style'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Config from 'react-native-config'
 import axios from 'axios'
 
-const ChangePassword = () => {
+const ChangePassword = ({navigation}) => {
 
     const [oldPassword, setOldPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
 
-
-
-
     const changePassword = async() => {
-        const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
-        axios.defaults.headers['X-API-KEY'] = API_KEY;
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         console.log("eski şifre: ", oldPassword)
         console.log("yeni şifre: ", newPassword)
         const responseData = await axios.post(Config.API_POST_CHANGE_PASSWORD_URL, {old_password: oldPassword, new_password: newPassword},
@@ -25,6 +21,18 @@ const ChangePassword = () => {
         console.log("post işlem sonucu: ",responseData.data)
         console.log("eski şifre: ", oldPassword)
         console.log("yeni şifre: ", newPassword)
+        if(responseData.data.status === "success"){
+            Alert.alert('Şifre Değişimi Başarılı','Şifreniz başarıyla değiştirildi lütfen yeni şifrenizle giriş yapınız',[
+                {text: 'Tamam', onPress: () => navigation.navigate('LogInScreen')},
+            ])
+        }else{
+            Alert.alert('Hatalı İşlem',responseData.data.message,[
+                {text: 'Tamam', onPress: () => {
+                    setNewPassword("")
+                    setOldPassword("")
+                }},
+            ])
+        }
     }
 
     return(

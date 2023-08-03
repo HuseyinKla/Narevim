@@ -21,6 +21,5 @@ export default StyleSheet.create({
     },
     icon: {
         color: '#E91E63'
-
     }
 })

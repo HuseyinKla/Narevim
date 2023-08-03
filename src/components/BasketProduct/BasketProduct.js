@@ -22,8 +22,7 @@ const BasketProduct = ({product}) => {
     },[])
 
     const deleteProduct = async() => {
-        const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
-        axios.defaults.headers['X-API-KEY'] = API_KEY;
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         console.log("SİL: ",product.rowid)
         const responseData = await axios.post(Config.API_POST_REMOVE_CART_URL, {rowID: product.rowid},
         {
@@ -48,6 +47,7 @@ const BasketProduct = ({product}) => {
                 return
             }
         }
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         const responseData = await axios.post(Config.API_POST_UPDATE_CART_URL, {product_id: product.rowid, qty: newCount},
         {
             headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'

@@ -2,7 +2,6 @@ import React from 'react'
 import { View, Text, TouchableWithoutFeedback } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import styles from './AccountOptionsCard.style'
-import Divider from '../Divider'
 
 const AccountOptions = ({iconName, title, onSelect}) => {
     return(

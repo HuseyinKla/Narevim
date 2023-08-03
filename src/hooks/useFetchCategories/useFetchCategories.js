@@ -1,4 +1,5 @@
 import axios from "axios";
+import Config from "react-native-config";
 
 const { useState, useEffect } = require("react");
 
@@ -38,8 +39,7 @@ function useFetchCategories(url, postData){
     }
 
     useEffect(()=> {
-        const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
-        axios.defaults.headers['X-API-KEY'] = API_KEY;
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY;
         console.log("post data ile gelen veriler: ",postData)
         if(postData){
             fetchDataPost()

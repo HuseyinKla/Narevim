@@ -27,7 +27,8 @@ import UserData from './pages/AccoutOptions/UserData'
 import NewAddress from './pages/AccoutOptions/NewAddress'
 import Product from './pages/Product'
 import Payment from './pages/Payment'
-import BrandsPage from './pages/BrandsPage/BrandsPage'
+import BrandsPage from './pages/BrandsPage'
+import ForgotPassword from './pages/ForgotPassword'
 
 
 const Stack = createNativeStackNavigator()
@@ -124,14 +125,17 @@ const AccountStruct = ({navigation}) => {
               <TouchableWithoutFeedback onPress={handleAddAddress} >
                 <Text style={{color: '#E91E63'}}>Adres Ekle</Text>
               </TouchableWithoutFeedback>
-            ),
+            )
           }} />
           <Stack.Screen name='NewAddressScreen' component={NewAddress} options={{
             headerTitle: 'Adres Ekle',
             headerTitleStyle: {fontSize: 18, color: '#E91E63'},
             headerTintColor: '#E91E63',
           }} />
-          <Stack.Screen name='ChangePasswordScreen' component={ChangePassword} options={{headerShown: false}} />
+          <Stack.Screen name='ChangePasswordScreen' component={ChangePassword} options={{
+            headerTitle: 'Şifremi Unuttum',
+            headerTitleStyle: {fontSize: 18, color: '#E91E63'},
+            headerTintColor: '#E91E63'}} />
           <Stack.Screen name='FavoritesScreen' component={Favorites} options={{
             headerTitle: 'Favori Ürünlerim',
             headerTitleStyle: {fontSize: 18, color: '#E91E63'},
@@ -146,6 +150,10 @@ const AccountStruct = ({navigation}) => {
             headerTitle: 'Kullanıcı Bilgileri',
             headerTitleStyle: {fontSize: 18, color: '#E91E63'},
             headerTintColor: '#E91E63',}} />
+          <Stack.Screen name='ForgotPasswordScreen' component={ForgotPassword} options={{
+            headerTitle: 'Şifremi Unuttum',
+            headerTitleStyle: {fontSize: 18, color: '#E91E63'},
+            headerTintColor: '#E91E63'}} />
         </Stack.Navigator>
       )
     }

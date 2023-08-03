@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Text, TextInput, View, TouchableOpacity, ScrollView, TouchableWithoutFeedback} from 'react-native'
+import { Text, TextInput, View, TouchableOpacity, ScrollView, TouchableWithoutFeedback, Alert} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import styles from './NewAddress.style'
 import Divider from '../../../components/Divider/Divider'
@@ -32,6 +32,7 @@ const NewAddress = ({navigation}) => {
   }
 
   const getTownName = async(id) => {
+    axios.defaults.headers['X-API-KEY'] = Config.API_KEY
     const responseTown = await axios.post(Config.API_POST_TOWN_URL, {city_id: id},
     {
       headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
@@ -40,29 +41,22 @@ const NewAddress = ({navigation}) => {
 }
 
   useEffect(()=> {
-    const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
-    axios.defaults.headers['X-API-KEY'] = API_KEY;
+    axios.defaults.headers['X-API-KEY'] = Config.API_KEY
     getCityName()
   },[])
 
-  //BUTONU KONTROL ET TİK DEĞİŞTİĞİNDE HATA VERİYOR MU
   const changeBillType = () => {
     setBillType(!billType)
   }
 
   const saveAddress = async(values) => {
-    const API_KEY = 'SSVa97j7z83nMXDzhmmdHSSLPG9NueDf3J6BgCSS';
-    axios.defaults.headers['X-API-KEY'] = API_KEY;
+    axios.defaults.headers['X-API-KEY'] = Config.API_KEY
     /*console.log('save address name: ', values.name)
     console.log('save address surname: ', values.surname)
     console.log('save address telephone: ', values.telephone)
     console.log('save address email: ', data.data.email)
     console.log('save address: ', cityName)
-    console.log('save address: ', townName)
-    const {data: responseAddress, loading: loadingAddress, error: errorAddress} = useFetchCategories(Config.API_POST_SAVE_ADDRESS_URL,{
-      name: values.name, surname: values.surname, email: data.data.email, telephone: values.telephone, city: id, town: townId, clear_address: values.clear_address,
-      billing_name: values.name, billing_surname: values.surname, billing_email: data.data.email, billing_telephone: values.telephone, billing_city: id, billing_town: townId, billing_clear_address: values.clear_address}
-    )*/
+    console.log('save address: ', townName)*/
     try {
       const responseAddress = await axios.post(Config.API_POST_SAVE_ADDRESS_URL, {
         name: values.name, surname: values.surname, email: data.data.email, telephone: values.telephone, city: id, town: townId, clear_address: values.clear_address,
@@ -72,7 +66,15 @@ const NewAddress = ({navigation}) => {
         headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
       })
       console.log("adres kaydetme işlemi: ",responseAddress.data.status)
-      navigation.navigate('AddressScreen')
+      if(responseAddress.data.status === "success"){
+        Alert.alert('Adres Girişi Başarılı',responseAddress.data.message,[
+          {text: 'Adreslerim Sayfasına Git', onPress: () => navigation.navigate('AddressScreen', {type: false})},
+        ])
+      }else{
+        Alert.alert('Hatalı Adres',responseAddress.data.message,[
+          {text: 'Tamam', onPress: () => null},
+        ])
+      }
       } catch (error) {
         console.log("adres kaydetme hatası: ", error)
       }
@@ -193,49 +195,48 @@ const NewAddress = ({navigation}) => {
                   <Divider/>
                   <View style={styles.dropdown_container}>
                   <Dropdown
-                    style={[styles.dropdown, isFocus && { borderColor: '#E91E63' }]}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
-                    itemTextStyle={{color: 'black'}}
-                    data={cityName}
-                    search
-                    maxHeight={300}
-                    labelField="title"
-                    valueField="id"
-                    placeholder={!isFocus ? 'Şehir Seçin' : '...'}
-                    searchPlaceholder="Ara..."
-                    value={id}
-                    onFocus={() => setIsFocus(true)}
-                    onBlur={() => setIsFocus(false)}
-                    onChange={item => {
-                      setId(item.id);
-                      setIsFocus(false);
-                      getTownName(item.id)
-                    }}
-                  />
-                  <Dropdown
-                    style={[styles.dropdown, isFocusTown && { borderColor: '#E91E63' }]}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
-                    itemTextStyle={{color: 'black'}}
-                    data={townName}
-                    search
-                    maxHeight={300}
-                    labelField="title"
-                    valueField="id"
-                    placeholder={!isFocusTown ? 'İlçe Seçin' : '...'}
-                    searchPlaceholder="Ara..."
-                    onFocus={() => setIsFocusTown(true)}
-                    onBlur={() => setIsFocusTown(false)}
-                    onChange={item => {
-                      console.log(item.title)
-                      
-                    }}
-                  />
+                  style={[styles.dropdown, isFocus && { borderColor: '#E91E63' }]}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  inputSearchStyle={styles.inputSearchStyle}
+                  itemTextStyle={{color: 'black'}}
+                  data={cityNameList}
+                  search
+                  maxHeight={300}
+                  labelField="title"
+                  valueField="id"
+                  placeholder={!isFocus ? 'Şehir Seçin' : '...'}
+                  searchPlaceholder="Ara..."
+                  value={id}
+                  onFocus={() => setIsFocus(true)}
+                  onBlur={() => setIsFocus(false)}
+                  onChange={item => {
+                    setId(item.id);
+                    setIsFocus(false);
+                    getTownName(item.id)
+                    setCityName(item.title)
+                  }}
+                />
+                <Dropdown
+                  style={[styles.dropdown, isFocusTown && { borderColor: '#E91E63' }]}
+                  placeholderStyle={styles.placeholderStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  inputSearchStyle={styles.inputSearchStyle}
+                  itemTextStyle={{color: 'black'}}
+                  data={townNameList}
+                  search
+                  maxHeight={300}
+                  labelField="title"
+                  valueField="id"
+                  placeholder={!isFocusTown ? 'İlçe Seçin' : '...'}
+                  searchPlaceholder="Ara..."
+                  onFocus={() => setIsFocusTown(true)}
+                  onBlur={() => setIsFocusTown(false)}
+                  onChange={item => {
+                    setTownName(item.title)
+                    setTownId(item.id)
+                  }}
+                />
                   </View>
                   <View style={styles.inner_container}>
                     <Icon name={"office-building"} size={35} style={styles.icon}/>
