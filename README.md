@@ -17,3 +17,4 @@
 - [auto login added](https://github.com/HuseyinKla/Narevim/commit/21191b93d9921aa3a4bf539c8b88f4500710ad04)
 - [bug fixed](https://github.com/HuseyinKla/Narevim/commit/21191b93d9921aa3a4bf539c8b88f4500710ad04)
 - [bug fixed](https://github.com/HuseyinKla/Narevim/commit/c46000887c26aa8a574320d9aa754c9d0dc1b236)
+- [forgot password added](https://github.com/HuseyinKla/Narevim/commit/572df09353d0784bb1551382dd1e2f56baa4fedd)
