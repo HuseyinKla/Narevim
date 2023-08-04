@@ -19,3 +19,4 @@
 - [bug fixed](https://github.com/HuseyinKla/Narevim/commit/c46000887c26aa8a574320d9aa754c9d0dc1b236)
 - [forgot password added](https://github.com/HuseyinKla/Narevim/commit/572df09353d0784bb1551382dd1e2f56baa4fedd)
 - [bug fixed](https://github.com/HuseyinKla/Narevim/commit/572df09353d0784bb1551382dd1e2f56baa4fedd)
+- [App icon added](https://github.com/HuseyinKla/Narevim/commit/4497e61b483d17ad30897942bb1840cb198aabaa)
