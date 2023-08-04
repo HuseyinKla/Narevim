@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, Text, View } from 'react-native'
 import Config from 'react-native-config'
-import MainPageProduct from '../../components/MainPageProduct/MainPageProduct'
+import MainPageProduct from '../../components/MainPageProduct'
 import axios from 'axios'
+import SortProduct from '../../components/SortProduct'
 
 const BrandsPage = ({route, navigation}) => {
 
     const [page, setPage] = useState(0)
     const [data, setData] = useState([])
     const [product, setProduct] = useState(null)
-
+    const [sortType, setSortType] = useState('') 
 
     const {id} = route.params
     console.log("gelen id: ",id)
 
     const fetchBrandProduct = async() => {
         axios.defaults.headers['X-API-KEY'] = Config.API_KEY
-        const responseData = await axios.post(Config.API_POST_BRAND_PRODUCT_URL, {page: page.toString(), per_page: '10', brand_id: id, sorting: 'ASC'},
+        const responseData = await axios.post(Config.API_POST_BRAND_PRODUCT_URL, {page: page.toString(), per_page: '10', brand_id: id, sorting: sortType},
         {
            headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
         })
@@ -35,7 +36,6 @@ const BrandsPage = ({route, navigation}) => {
         console.log("seçilen ürünün adı: ",title)
         console.log("seçilen ürünün idsi: ",id)
         navigation.navigate('ProductScreen', {id, title})
-
     }
 
 
@@ -45,7 +45,20 @@ const BrandsPage = ({route, navigation}) => {
 
     useEffect(()=> {
         fetchBrandProduct()
-    },[page])
+    },[page, sortType])
+
+
+    const selectSortASC = () => {
+        console.log("artan sıraya göre sıraladım")
+        setSortType('ASC')
+        fetchBrandProduct()
+    }
+
+    const selectSortDESC = () => {
+        console.log("azalan sıraya göre sıraladım")
+        setSortType('DESC')
+        fetchBrandProduct()
+    }
 
 
     if(data.length === 0){
@@ -57,6 +70,7 @@ const BrandsPage = ({route, navigation}) => {
     }else{
         return(
             <View>
+                <SortProduct onSelectASC={selectSortASC} onSelectDESC={selectSortDESC}/>
                 <FlatList data={data} renderItem={renderBrandProduct} onEndReached={endReached} numColumns={'2'}/>
             </View>
         )

@@ -38,8 +38,6 @@ const Address = ({route, navigation}) => {
             } catch (error) {
                 console.log("hata: ",error)
             }
-        }else{
-            console.log("hesabımdan girdin kardeş")
         }
     }
 

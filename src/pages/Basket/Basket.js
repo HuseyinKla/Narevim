@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, FlatList, TouchableWithoutFeedback } from 'react-native'
+import { Text, View, FlatList, TouchableWithoutFeedback, Alert } from 'react-native'
 import Config from 'react-native-config'
 import BasketProduct from '../../components/BasketProduct/BasketProduct'
 import styles from './Basket.style'
@@ -28,7 +28,13 @@ const Basket = ({navigation}) => {
             navigation.navigate('AccountStack', {screen: 'LogInScreen'})
         }else{
             //navigation.navigate('PaymentScreen')
-            navigation.navigate('AccountStack', {screen: 'AddressScreen', params: {type: true}})
+            if(count === 0){
+                Alert.alert('Sepet Boş', 'Lütfen ödeme ekranına geçmeden önce sepete ürün ekleyiniz',[
+                    {text: 'Tamam', onPress: () => null},
+                ])
+            }else{
+                navigation.navigate('AddressScreen', {type: true})
+            }
         }
     }
 
@@ -36,15 +42,15 @@ const Basket = ({navigation}) => {
     const fetchBasket = async() => {
         axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         const responseData = await axios.get(Config.API_GET_BASKET_URL)
-        console.log("sepet getirildi: ",responseData.status)
-        console.log("spetin toplamı: ",responseData.data.total)
+        //console.log("sepet getirildi: ",responseData.status)
+        //console.log("spetin toplamı: ",responseData.data.total)
         setData(responseData.data)
     }
 
 
     useEffect(()=> {
         fetchBasket()
-    },[])
+    },[data])
 
 
     return(

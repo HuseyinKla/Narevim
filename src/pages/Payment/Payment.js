@@ -5,10 +5,13 @@ import useFetchCategories from '../../hooks/useFetchCategories/useFetchCategorie
 import { Dropdown } from 'react-native-element-dropdown'
 import Config from 'react-native-config'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { setZero } from '../../context/counter/counterSlice'
 
 const Payment = ({navigation}) => {
 
     const {data, loading, error} = useFetchCategories(Config.API_GET_CARGO_LIST_URL)
+    const dispatch = useDispatch()
 
     const [isFocus, setIsFocus] = useState(false)
     const [id, setId] = useState('1')
@@ -17,6 +20,7 @@ const Payment = ({navigation}) => {
     const [isFocusPay, setIsFocusPay] = useState(false)
 
     const [note, setNote] = useState("")
+    const [coupon, setCoupon] = useState("")
 
     console.log(data)
 
@@ -38,12 +42,33 @@ const Payment = ({navigation}) => {
             ])
         }else{
             Alert.alert('Siparişiniz Alınmıştır', responseData.data.message, [
-                {text: 'Siparişlerime Git', onPress: () => navigation.navigate('AccountStack', {screen: 'OrderScreen'})},
+                {text: 'Tamam', onPress: () => {
+                    dispatch(setZero())
+                    navigation.navigate('BasketScreen')
+                }},
             ])
         }
     }
 
-    
+    const checkCoupon = async() => {
+        console.log(coupon)
+        axios.defaults.headers['X-API-KEY'] = Config.API_KEY
+        const responseData = await axios.post(Config.API_POST_DISCOUNT_COUPON_URL, {discount_code: coupon},
+        {
+            headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
+        })
+        if(responseData.data.status === "error"){
+            Alert.alert('Geçersiz İşlem', responseData.data.message,[
+                {text: 'Tamam', onPress: () => setCoupon("")},
+            ])
+        }else{
+            Alert.alert('Kupon Başarıyla Uygulandı Alınmıştır', responseData.data.message, [
+                {text: 'Tamam', onPress: () => null},
+            ])
+        }
+    }
+
+
     if(loading){
         return(
             <ActivityIndicator size={'large'}/>
@@ -54,9 +79,10 @@ const Payment = ({navigation}) => {
                 <View style={styles.payment_container}>
                     <Text style={styles.text}>Ödeme Yöntemi Seçin: </Text>
                     <Dropdown
-                      style={[styles.dropdown, isFocusPay && { borderColor: 'blue' }]}
+                      style={[styles.dropdown, isFocusPay && { borderColor: '#E91E63' }]}
                       selectedTextStyle={styles.selectedTextStyle}
                       inputSearchStyle={styles.inputSearchStyle}
+                      itemTextStyle={{color: 'black'}}
                       data={paymentTypes}
                       maxHeight={300}
                       labelField="value"
@@ -73,10 +99,11 @@ const Payment = ({navigation}) => {
                 <View style={styles.cargo_container}>
                     <Text style={styles.text}>Kargo Firması Seçin: </Text>
                     <Dropdown
-                      style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+                      style={[styles.dropdown, isFocus && { borderColor: '#E91E63' }]}
                       placeholderStyle={styles.placeholderStyle}
                       selectedTextStyle={styles.selectedTextStyle}
                       inputSearchStyle={styles.inputSearchStyle}
+                      itemTextStyle={{color: 'black'}}
                       data={data.data}
                       search
                       maxHeight={300}
@@ -96,8 +123,8 @@ const Payment = ({navigation}) => {
                 <View style={styles.discount_container}>
                     <Text style={styles.text_bold}>Kupon Kodu Ekle</Text>
                     <View style={{flexDirection: 'row'}}>
-                        <TextInput placeholder='Kupon Kodu' style={styles.input}/>
-                        <TouchableWithoutFeedback>
+                        <TextInput placeholder='Kupon Kodu' style={styles.input} onChangeText={setCoupon} value={coupon} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
+                        <TouchableWithoutFeedback onPress={checkCoupon}>
                             <View style={styles.button}>
                                 <Text style={{color: 'white'}}>Uygula</Text>
                             </View>
@@ -106,7 +133,7 @@ const Payment = ({navigation}) => {
                 </View>
                 <View style={styles.note_container}>
                     <Text style={styles.text_bold}>Eklemek istediğiniz not var mı ?</Text>
-                    <TextInput placeholder='Not' style={styles.long_input} value={note} onChangeText={setNote}/>
+                    <TextInput placeholder='Not' style={styles.long_input} value={note} onChangeText={setNote} placeholderTextColor={'gray'} cursorColor={'#E91E63'}/>
                 </View>
                 <TouchableWithoutFeedback onPress={finishPayment}>
                     <View style={styles.long_button}>

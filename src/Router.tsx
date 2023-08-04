@@ -29,16 +29,11 @@ import Product from './pages/Product'
 import Payment from './pages/Payment'
 import BrandsPage from './pages/BrandsPage'
 import ForgotPassword from './pages/ForgotPassword'
+import OrderDetail from './pages/AccoutOptions/OrderDetail'
 
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
-
-
-
-
-
-
 
 
 const CategoriesPageStruct = () => {
@@ -154,6 +149,10 @@ const AccountStruct = ({navigation}) => {
             headerTitle: 'Şifremi Unuttum',
             headerTitleStyle: {fontSize: 18, color: '#E91E63'},
             headerTintColor: '#E91E63'}} />
+          <Stack.Screen name='OrderDetailScreen' component={OrderDetail} options={{
+            headerTitle: 'Sipariş Detayı',
+            headerTitleStyle: {fontSize: 18, color: '#E91E63'},
+            headerTintColor: '#E91E63'}} />
         </Stack.Navigator>
       )
     }
@@ -161,6 +160,7 @@ const AccountStruct = ({navigation}) => {
 }
 
 const BasketStruct = () => {
+
   return(
     <Stack.Navigator>
       <Stack.Screen name='BasketScreen' component={Basket} options={{headerShown: false}}/>
@@ -169,6 +169,11 @@ const BasketStruct = () => {
         headerTitleStyle: {fontSize: 18, fontFamily: 'italic', color: '#E91E63'},
         headerTintColor: '#E91E63'    
         }}/>
+        <Stack.Screen name='AddressScreen' component={Addres} options={{
+            headerTitle: 'Adreslerim',
+            headerTitleStyle: {fontSize: 18, color: '#E91E63'},
+            headerTintColor: '#E91E63',
+          }} />
     </Stack.Navigator>
   )
 }

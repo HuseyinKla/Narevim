@@ -9,6 +9,7 @@ export default StyleSheet.create({
         width: width * 0.9,
         height: height * 0.6,
         alignSelf: 'center',
+        resizeMode: 'contain',
     },
     inner_container:{
     },
@@ -58,6 +59,24 @@ export default StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#E91E63',
         borderRadius: 5,
+    },
+    wrapDot: {
+        position: 'absolute',
+        top: 420,
+        flexDirection: 'row',
+        alignSelf:'center',
+    },
+    dotActive: {
+        margin: 3,
+        color: 'black',
+    },
+    dot: {
+        margin: 3,
+        color: '#e0e0e0'
+    },
+    scroll: {
+        width: width * 0.9,
+        alignSelf:'center'
     }
 
 })

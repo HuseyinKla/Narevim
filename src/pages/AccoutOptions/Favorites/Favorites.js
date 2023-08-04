@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ActivityIndicator, FlatList, View } from 'react-native'
 import useFetchCategories from '../../../hooks/useFetchCategories/useFetchCategories'
 import Config from 'react-native-config'
@@ -11,6 +11,7 @@ const Favorites = ({navigation}) => {
     const handleSelect = (id, title) => {
         navigation.navigate('ProductScreen',{id, title})
     }
+
 
     const renderFav = ({item}) => <MainPageProduct item={item} img={data.image_path} onSelect={()=> handleSelect(item.id, item.title)}/>
 

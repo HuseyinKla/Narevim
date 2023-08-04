@@ -14,7 +14,7 @@ export default StyleSheet.create({
     },
     placeholderStyle: {
         fontSize: 16,
-        color: 'black',
+        color: 'gray',
     },
     selectedTextStyle: {
         fontSize: 16,
@@ -62,6 +62,7 @@ export default StyleSheet.create({
         borderRadius: 5,
         borderColor: '#e0e0e0',
         width: width * 0.7,
+        color: 'black',
     },
     button: {
         justifyContent: 'center',
@@ -78,6 +79,7 @@ export default StyleSheet.create({
         borderRadius: 5,
         borderColor: '#e0e0e0',
         width: width * 0.9,
+        color: 'black',
     },
     long_button: {
         justifyContent: 'center',

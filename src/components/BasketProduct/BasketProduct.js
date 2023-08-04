@@ -13,12 +13,12 @@ const {height, width} = Dimensions.get('window')
 
 const BasketProduct = ({product}) => {
 
-    const [newCount, setNewCount] = useState(product.qty)
+    const [newCount, setNewCount] = useState(product.qty+1)
     const dispatch = useDispatch()
 
     useEffect(()=> {
         dispatch(increment()) 
-        handleUpdateCart()
+        //handleUpdateCart()
     },[])
 
     const deleteProduct = async() => {
@@ -29,12 +29,13 @@ const BasketProduct = ({product}) => {
             headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
         })
         console.log("silme işlem sonucu: ",responseData.data.message)
+        dispatch(decrement())
         //BURADA TEKRAR RENDER EDİLECEK
     }
     
-    console.log("ürünün row idsi: ",product.rowid)
+    /*console.log("ürünün row idsi: ",product.rowid)
     console.log("ürünün adedi : ",product.qty)
-    console.log("ürünün idsi : ",product.id)
+    console.log("ürünün idsi : ",product.id)*/
 
 
     const handleUpdateCart = async(type) => {
@@ -48,7 +49,7 @@ const BasketProduct = ({product}) => {
             }
         }
         axios.defaults.headers['X-API-KEY'] = Config.API_KEY
-        const responseData = await axios.post(Config.API_POST_UPDATE_CART_URL, {product_id: product.rowid, qty: newCount},
+        const responseData = await axios.post(Config.API_POST_UPDATE_CART_URL, {rowID: product.rowid, qty: newCount},
         {
             headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
         })
@@ -80,7 +81,7 @@ const BasketProduct = ({product}) => {
                             </TouchableWithoutFeedback>
                         </View>
                         <View style={{backgroundColor: '#e0e0e0', width: width * 0.08, justifyContent: 'center', }}>
-                            <Text style={styles.count}>{newCount}</Text>
+                            <Text style={styles.count}>{product.qty}</Text>
                         </View>
                         <View style={{backgroundColor: '#E91E63', width: width * 0.09, height: height * 0.04, borderTopRightRadius: 5, borderBottomRightRadius: 5, alignItems: 'center', justifyContent: 'center'}}>
                             <TouchableWithoutFeedback onPress={()=> handleUpdateCart(1)}>

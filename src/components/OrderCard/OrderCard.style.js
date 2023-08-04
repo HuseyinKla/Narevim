@@ -4,34 +4,44 @@ const {width, height} = Dimensions.get('window')
 
 export default StyleSheet.create({
     container: {
-
+        backgroundColor: '#e0e0e0',
+        flex: 1,
     },
     inner_container: {
-        margin: 20,
-        borderWidth: 1,
-        borderColor: '#e0e0e0',
-        borderRadius: 10,
-        height: height * 0.15,
-        width: width * 0.8,
-        alignSelf: 'center',
-        justifyContent: 'space-around',
-        backgroundColor: '#E91E63'
+        backgroundColor: 'white',
+        marginVertical: height * 0.02,
+        marginHorizontal: width * 0.04,
+        borderRadius: 5,
     },
-    id: {
-        alignSelf: 'center',
-        color: 'black',
+    icon: {
+        fontSize: 20,
+        color: 'darkorange'
     },
-    date: {
-        alignSelf: 'center',
-        color: 'black',
-
+    upper_container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: width * 0.05,
+        alignItems: 'center',
+        borderBottomWidth: 0.5,
+        borderBottomColor: 'gray',
     },
-    amount: {
-        alignSelf: 'center',
-        color: 'black',
+    middle_container: {
+        flexDirection: 'row',
+        paddingHorizontal: width * 0.05,
+        paddingVertical: height * 0.02,
     },
-    text: {
-        alignSelf: 'center',
-        color: 'white',
+    footer_container: {
+        paddingHorizontal: width * 0.05,
+    },
+    text_date: {
+        color: 'black', 
+        fontWeight: 'bold', 
+        paddingTop: height * 0.02,
+        
+    },
+    image: {
+        height: height * 0.12,
+        width: width * 0.1,
+        marginHorizontal: width * 0.02
     }
 })

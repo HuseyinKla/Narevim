@@ -31,8 +31,8 @@ const Login = ({navigation}) => {
             }else{
                 console.log(values)
                 AsyncStorage.setItem('USER', JSON.stringify(values))
-                navigation.replace('AccountScreen')
-                //navigation.navigate('AccountScreen')
+                //navigation.replace('AccountScreen')
+                navigation.navigate('AccountScreen')
             }
         } catch (error) {
             console.log(error)

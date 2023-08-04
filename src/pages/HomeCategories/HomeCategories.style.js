@@ -28,6 +28,7 @@ export default StyleSheet.create({
     image: {
         width:  width * 0.45,
         height: height * 0.25,
+        resizeMode: 'contain',
     },
     star_container: {
         flexDirection: 'row',

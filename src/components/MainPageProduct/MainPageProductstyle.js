@@ -28,6 +28,7 @@ export default StyleSheet.create({
     image: {
         width:  width * 0.45,
         height: height * 0.25,
+        resizeMode: 'contain',
     },
     star_container: {
         flexDirection: 'row',
@@ -36,6 +37,10 @@ export default StyleSheet.create({
     star: {
         fontSize: 20,
         color: 'orange'
+    },
+    empty_star: {
+        fontSize: 20,
+        color: '#e0e0e0'
     },
     price: {
         alignSelf: 'center',

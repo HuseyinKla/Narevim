@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, Image, TouchableWithoutFeedback, ActivityIndicator, ScrollView } from 'react-native'
 import styles from './Product.style'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -7,7 +7,7 @@ import Config from 'react-native-config'
 import axios from 'axios'
 
 const Product = ({route, navigation}) => {
-    const {id} = route.params
+    const {id, title} = route.params
 
     const {data, loading, error} = useFetchCategories(Config.API_POST_PRODUCT_DETAIL_URL, {product_id: id})
     console.log("product detail",data.data)
@@ -15,6 +15,7 @@ const Product = ({route, navigation}) => {
     console.log("isFavoritte değeri: ",data.isFavoritte)
 
     const [fav, setFav] = useState(data.isFavoritte)
+    const [imgActive, setImgActive] = useState(0)
 
     const addCart = async() => {
         axios.defaults.headers['X-API-KEY'] = Config.API_KEY
@@ -28,6 +29,7 @@ const Product = ({route, navigation}) => {
                 navigation.navigate('BasketStack', {screen: 'BasketScreen'})
             }
     }
+
     const addFav = () => {
         axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         axios.post(Config.API_POST_TOGGLE_FAV_URL, {product_id: product.id},
@@ -42,6 +44,18 @@ const Product = ({route, navigation}) => {
         })
     }
 
+    const onChange = (swipe) => {
+        if(swipe){
+            const slide = Math.ceil(swipe.contentOffset.x / swipe.layoutMeasurement.width)
+            if(slide != imgActive){
+                setImgActive(slide)
+            }
+        }
+    }
+
+
+
+
     if(loading){
         return(
             <ActivityIndicator size={'large'}/>
@@ -51,7 +65,29 @@ const Product = ({route, navigation}) => {
         <View style={styles.container}>
             <ScrollView >
                 <View style={styles.inner_container}>
-                    <Image source={{uri: data.images[0]}} style={styles.image}/>
+                    <ScrollView
+                    onScroll={({nativeEvent}) => onChange(nativeEvent)}
+                    showsHorizontalScrollIndicator={false}
+                    pagingEnabled
+                    horizontal
+                    style={styles.scroll}
+                    >
+                        {
+                            data.images.map((e, index) => 
+                                <Image source={{uri: e}} style={styles.image} key={e}/>
+                            
+                            )
+                        }
+                    </ScrollView>
+                    <View style={styles.wrapDot}>
+                        {
+                            data.images.map((e, index) => 
+                            <Text 
+                                key={e} 
+                                style={imgActive == index ? styles.dotActive : styles.dot}>●</Text>
+                            )
+                        }
+                    </View>
                     <Text style={styles.title}>{product.title}</Text>
                     <Text style={styles.text}>Ürün hakkında bilgiler:</Text>
                     <Text style={styles.description}>{product.description}</Text>

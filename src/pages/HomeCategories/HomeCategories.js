@@ -7,6 +7,7 @@ import axios from 'axios'
 import styles from './HomeCategories.style'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import MainPageProduct from '../../components/MainPageProduct'
+import SortProduct from '../../components/SortProduct'
 
 
 const HomeCategories = ({route, navigation}) => {
@@ -15,12 +16,15 @@ const HomeCategories = ({route, navigation}) => {
     const [page, setPage] = useState(0)
     const [data, setData] = useState([])
     const [img, setImg] = useState("")
+    const [sortType, setSortType] = useState('')
+
+
 
     const fetchHomeProducts = async() => {
         axios.defaults.headers['X-API-KEY'] = Config.API_KEY
         try {
             const responseData = await axios.post(Config.API_POST_HOME_CATEGORIES_URL, 
-                {url_string: url, per_page: '10', page:  page.toString(), sorting: 'ASC'},
+                {url_string: url, per_page: '10', page:  page.toString(), sorting: sortType},
                 {
                     headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
                 })
@@ -35,7 +39,7 @@ const HomeCategories = ({route, navigation}) => {
 
     useEffect(()=> {
         fetchHomeProducts()
-    },[page])
+    },[page, sortType])
 
 
     const handleSelectedProduct = (id, title) => {
@@ -65,9 +69,22 @@ const HomeCategories = ({route, navigation}) => {
         )
     }
 
+    const selectSortASC = () => {
+        console.log("artan sıraya göre sıraladım")
+        setSortType('ASC')
+        fetchHomeProducts()
+    }
+
+    const selectSortDESC = () => {
+        console.log("azalan sıraya göre sıraladım")
+        setSortType('DESC')
+        fetchHomeProducts()
+    }
+
     if(route.params.url){
         return(
             <View>
+                <SortProduct onSelectASC={selectSortASC} onSelectDESC={selectSortDESC}/>
                 <FlatList 
                 data={data}
                 renderItem={renderProducts}

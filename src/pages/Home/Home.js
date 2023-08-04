@@ -8,6 +8,7 @@ import Brands from '../../components/Brands/Brands'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import axios from 'axios'
 import MainPageProduct from '../../components/MainPageProduct/MainPageProduct'
+import SortProduct from '../../components/SortProduct/SortProduct'
 
 const Home = ({navigation}) => {
 
@@ -18,7 +19,7 @@ const Home = ({navigation}) => {
   const [isSearch, setIsSearch] = useState(false)
   const [brandProducts, setBrandProducts] = useState([])
   const [page, setPage] = useState(0)
-
+  const [sortType, setSortType] = useState('')
 
   const renderMainCategories = ({item}) => <MainPageCategoriesCard category={item} 
   onSelect={() => handleSelectMainCategories(item.button_url)} 
@@ -37,6 +38,7 @@ const Home = ({navigation}) => {
   const handleBrandProducts = (id, title) => {
     console.log("seçilen ürünün idsi: ",id)
     console.log("seçilen ürünün adı: ",title)
+    navigation.navigate('ProductScreen', {id, title})
   }
 
 
@@ -55,7 +57,7 @@ const Home = ({navigation}) => {
     if(!isSearch)
     {
       axios.defaults.headers['X-API-KEY'] = Config.API_KEY
-      const responseData = await axios.post(Config.API_POST_SEARCH_BRAND_URL, {keywords: searchText, page: page.toString(), per_page: '30', sorting: 'ASC'},
+      const responseData = await axios.post(Config.API_POST_SEARCH_BRAND_URL, {keywords: searchText, page: page.toString(), per_page: '30', sorting: sortType},
       {
         headers: axios.defaults.headers['Content-Type'] = 'multipart/form-data'
       })
@@ -83,6 +85,19 @@ const Home = ({navigation}) => {
     handleSearchBrand()
   }
 
+  const selectSortASC = () => {
+    console.log("artan sıraya göre sıraladım")
+    setSortType('ASC')
+    handleSearchBrand()
+}
+
+const selectSortDESC = () => {
+    console.log("azalan sıraya göre sıraladım")
+    setSortType('DESC')
+    handleSearchBrand()
+}
+
+
   if(error){
     console.log("işlem hatalı error: ",error)
   }
@@ -109,7 +124,10 @@ const Home = ({navigation}) => {
             {
               isSearch
               ? 
+              <>
+                <SortProduct onSelectASC={selectSortASC} onSelectDESC={selectSortDESC}/>
                 <FlatList data={brandProducts.data} renderItem={renderBrandProduct} numColumns={'2'} onEndReached={endReached}/>
+              </>
               : 
               <>
                 <FlatList data={data.data} renderItem={renderMainCategories}/>
