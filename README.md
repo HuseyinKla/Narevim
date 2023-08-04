@@ -21,3 +21,4 @@
 - [bug fixed](https://github.com/HuseyinKla/Narevim/commit/572df09353d0784bb1551382dd1e2f56baa4fedd)
 - [App icon added](https://github.com/HuseyinKla/Narevim/commit/4497e61b483d17ad30897942bb1840cb198aabaa)
 - [Order Detail Screen added](https://github.com/HuseyinKla/Narevim/commit/4497e61b483d17ad30897942bb1840cb198aabaa)
+- [bug fixed](https://github.com/HuseyinKla/Narevim/commit/4497e61b483d17ad30897942bb1840cb198aabaa)
